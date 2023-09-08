@@ -1,6 +1,6 @@
 var isdark = false;
 var isqipao = true;
-
+var server="https://www.hcu.icu/";
 if (getc("qipao") == "0") {
     isqipao = false;
 } else {
@@ -258,7 +258,7 @@ function my1(v = "") {
         v = cid;
     }
     main.innerHTML = "正在加载聊天记录";
-    fetch("direct1.php?his=" + v) // 更改为你的PHP脚本的URL
+    fetch(server+"direct1.php?his=" + v) // 更改为你的PHP脚本的URL
         .then((response) => response.arrayBuffer())
         .then((arrayBuffer) => {
             // 使用pako解压缩
@@ -576,7 +576,7 @@ function addx(user, t, type = true, type1 = true, prep = false, pid = "", ojb) {
 
 function gettip() {
     document.getElementById("tip1").innerHTML = hello();
-    fetch("direct.php?tip=1")
+    fetch(server+"direct.php?tip=1")
         .then((response) => response.text())
         .then((data) => {
             if (data != "!") {
@@ -587,7 +587,7 @@ function gettip() {
         });
 
 
-        fetch("direct1.php?notice")
+        fetch(server+"direct1.php?notice")
         .then((response) => response.json())
         .then((data) => {
             document.getElementById("tip3").innerHTML = "重要通知:" + data.m;
@@ -787,18 +787,18 @@ function getc(cookieName) {
     return "";
 }
 function getIP() {
-    return fetch("getip.php")
+    return fetch(server+"getip.php")
         .then(response => response.text())
         .then(data => data);
 }
 document.addEventListener('DOMContentLoaded', function () {
-    fetch("direct1.php?ip")
+    fetch(server+"direct1.php?ip")
         .then((response) => response.json())
         .then((data) => {
             if (data.local != "no") {
                 document.getElementById("weather").innerText = data.local + "天气";
                 var obj = JSON.parse(data.raw);
-                fetch("direct1.php?weather=" + obj.data.lng + "," + obj.data.lat)
+                fetch(server+"direct1.php?weather=" + obj.data.lng + "," + obj.data.lat)
                     .then((response) => response.json())
                     .then((data) => {
                         const table = document.getElementById('weatherTable');
