@@ -7,8 +7,10 @@
 
             const urlParams = new URLSearchParams(window.location.search);
         var server="https://www.hcu.icu/";
+    var wsserver= "wss://www.hcu.icu:8080/"
         if (urlParams.get('server')=="2"){
             var server="https://hcu.icu/";
+            var wsserver= "wss://hcu.icu:8080/"
         }
      
  </script>
@@ -753,7 +755,7 @@ const imgElement = document.getElementById('bgimg');
 
                     });
 
-                    function sendw(url = "wss://www.hcu.icu:8080/") {
+                    function sendw(url = wsserver) {
                         if (!mess.value || submit_btn.style.display == "none") {
                             return;
                         }
