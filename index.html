@@ -14,7 +14,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
     <script>
         newcss.href = "css/new.css?" + generateRandomString(10);
-var server="https://www.hcu.icu/";
+
+        const urlParams = new URLSearchParams(window.location.search);
+        var server="https://www.hcu.icu/";
+        if (urlParams.get('server')=="2"){
+            var server="https://hcu.icu/";
+        }
         // 判断是否为 HTTP
         if (window.location.protocol !== "https:") {
             // 构造新的 HTTPS 地址
@@ -397,10 +402,7 @@ margin-top: 5rem !important;
             <h3>功能讲解:</h3>
             <div class="carousel-container">
                 <div class="carousel-slide">
-                    <p>左边是聊天记录，可以左右拖动调整聊天记录栏大小</p>
-                </div>
-                <div class="carousel-slide">
-                    <img src="pic/tip.png" style="width:100%">
+                    <p>可以左右拖动调整聊天记录栏大小</p>
                 </div>
                 <div class="carousel-slide">
                     <p>Shift+滚轮调整<span style="font-size: 1.5em; font-weight: bold;">字体</span>大小，Ctrl+滚轮调整<span
