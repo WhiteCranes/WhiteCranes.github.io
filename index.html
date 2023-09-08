@@ -8,9 +8,11 @@
             const urlParams = new URLSearchParams(window.location.search);
         var server="https://www.hcu.icu/";
     var wsserver= "wss://www.hcu.icu:8080/"
+      var myVariable = "1号服务器";
         if (urlParams.get('server')=="2"){
             var server="https://hcu.icu/";
-            var wsserver= "wss://hcu.icu:8080/"
+            var wsserver= "wss://hcu.icu:8080/";
+            var myVariable = "2号服务器";
         }
      
  </script>
@@ -403,7 +405,14 @@ margin-top: 5rem !important;
 </head>
 
 <body>
-    1号服务器
+        <div id="variableDisplay"></div>
+
+    <script>
+        // JavaScript代码
+       
+        var displayDiv = document.getElementById("variableDisplay");
+        displayDiv.textContent = myVariable;
+    </script>
     <!-- 弹窗内容 -->
     <div class="modal" id="myModal">
         <div class="modal-content" id="modal-content1">
@@ -837,13 +846,9 @@ const imgElement = document.getElementById('bgimg');
             main.innerHTML = ``;
             pid = "";
             document.getElementById("footer").style.display = "flex";
-            addmessage("left", `<p>2023-09-06 公告</p><p>1服恢复使用</p>`, false, true, false);
-            addmessage("left", `<p>2023-09-04 公告</p><p>侦测到GPT官方再次大规模封号，1服已经被封，2服关闭匿名使用</p>`, false, true, false);
             //addmessage("left", `<img src="pic/avatar.gif" alt="用户头像">`, false, true, false);
-            addmessage("left", `<p>2023-08-31 公告</p>         <p>增设二号服务器”两厢情愿“，数据不互通</p>       <button class="newcbutton refresh" onclick="window.location.href = 'http://hcu.icu';">
-                前往”两厢情愿“服
-                    
-                </button>`, false, true, false);
+            addmessage("left", `<p>2023-08-31 公告</p>         <p>增设二号服务器”两厢情愿“，数据不互通</p>      <a href="?server=2">切换到 Server 2</a>
+<a href="?server=1">切换到 Server 1</a>`, false, true, false);
             addmessage("left", `<p>2023-08-30 公告</p><p>歌单，把回忆拼好，嘉宾，兰亭序，letting go</p>`, false, true, false);
 
         }
