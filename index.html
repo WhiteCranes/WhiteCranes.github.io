@@ -1,13 +1,1636 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow: hidden;">
+
 <head>
-  <meta charset="UTF-8">
-  <title>跳转页面</title>
-  <script>
-    
-  </script>
+    <meta charset="UTF-8" />
+    <script src="js/new.js?6os3m"></script>
+    <link id="newcss" rel="stylesheet" href="">
+    <script src="js/marked.min.js"></script>
+    <script src="js/pako_inflate.min.js"></script>
+    <script src="js/highlight.min.js?14"></script>
+    <link rel="stylesheet" href="css/if.css">
+    <link rel="stylesheet" href="css/github.css?l7d1">
+    <link id="themeStylesheet" rel="stylesheet" href="css/github.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
+    <script>
+        newcss.href = "css/new.css?" + generateRandomString(10);
+
+        // 判断是否为 HTTP
+        if (window.location.protocol !== "https:") {
+            // 构造新的 HTTPS 地址
+            var newUrl = "https://" + window.location.hostname + window.location.pathname + window.location.search + window.location.hash;
+
+            // 进行跳转
+            window.location.href = newUrl;
+        }
+
+        var cid = "";
+        var pid = "";
+        var model = "";
+        var cango = true;
+        var version = "";
+        const urlParams = new URLSearchParams(window.location.search);
+        // 发起GET请求
+        fetch('direct1.php?version')
+            .then(response => response.text())
+            .then(data => {
+                // 在这里处理解析后的数据
+                version = data;
+                console.log(version);
+            });
+
+
+        // if (urlParams.get('pwd') === null) {
+        //     let userInput = prompt('请输入密码:\n\n输入密码是为了防止滥用,\n本站是私人网站,用于自用或给朋友用,发现被传播开有人问恶劣的问题\n\n密码问作者领取');
+        //     if (userInput && getc("userid") !== userInput) {
+        //         setc("userid", userInput);
+        //     } else if (userInput) {
+        //         alert("你已经输过了密码，会保存的，我的意思是你可以不用再输入的");
+        //     }
+        // } else {
+        //     setc("userid", urlParams.get('pwd'));
+        // }
+
+        if (getc("userid") == "") { setc("userid", "匿名用户" + generateRandomString(10)); }
+
+        if (getc("fontsize1") == "") { setc("fontsize1", "1.5"); }
+
+
+
+        marked.use({
+            gfm: true,
+            mangle: false,
+            headerIds: false,
+        });
+    </script>
+
+    <style>
+          .main>:first-child {
+margin-top: 5rem !important;
+  }
+        @keyframes rotateAnimation {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #draggableDiv {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(15px);
+            background-color: #FFF5;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            cursor: move;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            user-select: none;
+            /* 阻止用户选中文本 */
+        }
+
+        #message-input {
+            background-color: transparent;
+            flex-grow: 1;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+        }
+
+        #send-button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        #send-button:hover {
+            background-color: #45a049;
+        }
+
+        .unnecessary {
+            user-select: none;
+        }
+
+        img {
+            user-select: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .time,
+        .local {
+            white-space: nowrap;
+            overflow-x: hidden;
+            font-size: 0.5rem;
+        }
+
+        .hiscontent {
+            font-size: 1.2rem;
+            transition: none;
+        }
+
+        #lyrics-container {
+            font-weight: bold;
+            font-family: "Helvetica Black", sans-serif;
+            font-size: 1.5rem;
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            /* 移除下划线 */
+        }
+
+        #back {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -5;
+            background-size: 100% 100%;
+        }
+
+        .background-div {
+            position: absolute;
+            /* 绝对定位，脱离文档流 */
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* 将背景置于底层 */
+        }
+
+        .modal {
+            display: block;
+            /* 初始时隐藏弹窗 */
+
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* 背景半透明黑色 */
+        }
+
+        .modal-content {
+            user-select: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            color: black;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .modal-content p {
+            margin: 1rem;
+
+        }
+
+        .modal .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal .button:hover {
+            background-color: #0056b3;
+        }
+
+        .page-indicator {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .defx {
+            backdrop-filter: blur(3px);
+        }
+    </style>
+    <style>
+        .button-container {
+            text-align: center;
+        }
+
+        .button-container a {
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .button-container a:nth-child(1) {
+            background-color: #FF5733;
+        }
+
+        .button-container a:nth-child(1):hover {
+            background-color: #FFC300;
+        }
+
+        .button-container a:nth-child(2) {
+            background-color: #3498DB;
+        }
+
+        .button-container a:nth-child(2):hover {
+            background-color: #85C1E9;
+        }
+
+        .button-container a:nth-child(3) {
+            background-color: #27AE60;
+        }
+
+        .button-container a:nth-child(3):hover {
+            background-color: #82E0AA;
+        }
+
+        .button-container a:nth-child(4) {
+            background-color: #E74C3C;
+        }
+
+        .button-container a:nth-child(4):hover {
+            background-color: #F1948A;
+        }
+
+        .button-container a:nth-child(5) {
+            background-color: #8E44AD;
+        }
+
+        .button-container a:nth-child(5):hover {
+            background-color: #BB8FCE;
+        }
+
+        .button-container a:nth-child(6) {
+            background-color: #F1C40F;
+        }
+
+        .button-container a:nth-child(6):hover {
+            background-color: #F7DC6F;
+        }
+
+        .button-container a:nth-child(7) {
+            background-color: #16A085;
+        }
+
+        .button-container a:nth-child(7):hover {
+            background-color: #48C9B0;
+        }
+
+        .button-container a:nth-child(8) {
+            background-color: #D35400;
+        }
+
+        .button-container a:nth-child(8):hover {
+            background-color: #EDBB99;
+        }
+
+        .button-container a:nth-child(9) {
+            background-color: #2C3E50;
+        }
+
+        .button-container a:nth-child(9):hover {
+            background-color: #5D6D7E;
+        }
+
+        .button-container a:nth-child(10) {
+            background-color: #7F8C8D;
+        }
+
+        .button-container a:nth-child(10):hover {
+            background-color: #BDC3C7;
+        }
+    </style>
+    <style>
+        .search-input {
+            padding: 10px 15px;
+            border: 3px solid #ccc;
+            border-radius: 1rem;
+            font-size: 16px;
+            color: inherit;
+            margin: 0.5rem;
+            background-color: #7773;
+            transition: all 0.3s ease-in-out;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #3498db;
+            transform: scale(1.04) !important;
+        }
+
+        .search-input:hover {
+            transform: scale(1.02);
+        }
+
+        #his bottom:hover {
+            transform: scale(1.05);
+            background-color: #7775;
+        }
+
+        #draggableDiv a {
+            transition: all 0.3s ease-in-out;
+        }
+
+        #draggableDiv a:hover {
+            transform: scale(1.05);
+        }
+        pre code{
+            font-size: calc(100% - 0.3rem);
+            font-family: "SimHei", "Microsoft JhengHei", "PingFang SC", "Heiti SC", Arial, sans-serif !important;
+        }
+        .no_copy{
+            moz-user-select: -moz-none;
+            -moz-user-select: none;
+            -o-user-select:none;
+            -khtml-user-select:none;
+            -webkit-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+        }
+    </style>
 </head>
+
 <body>
-  <p>如果你的浏览器没有自动跳转，请点击<a href="mo1.html">这里</a>。</p>
+    1号服务器
+    <!-- 弹窗内容 -->
+    <div class="modal" id="myModal">
+        <div class="modal-content" id="modal-content1">
+
+
+
+            <h2>请详细阅读使用说明书</h2>
+            <h3>功能讲解:</h3>
+            <div class="carousel-container">
+                <div class="carousel-slide">
+                    <p>左边是聊天记录，可以左右拖动调整聊天记录栏大小</p>
+                </div>
+                <div class="carousel-slide">
+                    <img src="pic/tip.png" style="width:100%">
+                </div>
+                <div class="carousel-slide">
+                    <p>Shift+滚轮调整<span style="font-size: 1.5em; font-weight: bold;">字体</span>大小，Ctrl+滚轮调整<span
+                            style="font-size: 1.5em; font-weight: bold;">整体</span>大小</p>
+                </div>
+                <div class="carousel-slide">
+                    <p>双击代码区域就能复制代码</p>
+                </div>
+                <div class="carousel-slide">
+                    <p>回溯功能，在ai回复的消息右键选择从此处开始，当你说错了话或者想从之前的某句话开始重新往下聊的时候就能用这个功能</p>
+                </div>
+                <!-- <div class="carousel-slide">
+                    <div class="button-container">
+                        <a href="https://www.doubao.com/" target="_blank">抖音大模型(抖音登录马上能用，推荐)</a>
+                        <a href="https://yiyan.baidu.com/" target="_blank">百度大模型(申请内测就能用)</a>
+                        <a href="https://chatglm.cn/detail" target="_blank">清华GLM大模型(应该能用)</a>
+                        <a href="https://xinghuo.xfyun.cn/" target="_blank">讯飞大模型(不知道没用过)</a>
+                        <a href="https://qianwen.aliyun.com/" target="_blank">淘宝大模型(不知道没用过)</a>
+                        <a href="https://chat.360.cn/" target="_blank">360大模型(我一申请第二天就过了，很花里胡哨)</a>
+                        <a href="https://ai.wps.cn/" target="_blank">WPS大模型(不知道没用过)</a>
+                        <a href="https://moss.fastnlp.top/moss/" target="_blank">MOSS大模型(不知道没用过)</a>
+                        <a href="https://neice.tiangong.cn/" target="_blank">天工大模型(不知道没用过)</a>
+
+                    </div>
+
+                </div> -->
+
+
+
+
+                <h3 style="color: red;">特别重要的提示:</h3>
+                <p style="color: red;">本网站是私人网站，允许匿名使用，但是切记不能输入咨询违反中国大陆法律法规的内容</p>
+                <p style="color: red;">可以在中国银行app生活，周二麦当劳，给我买一个菠萝派支持一下我啵，一个月只需要一次，一次一块钱</p>
+                <div class="page-indicator" id="pageIndicator"></div>
+                <button class="button" id="closeModal" style="display: none;">关闭</button>
+                <button class="button" id="prevSlide">上一条</button>
+                <button class="button" id="nextSlide">下一条</button>
+            </div>
+
+
+        </div>
+        <div style="display: none;" id="modal-content2" class="modal-content">
+            <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor"
+                class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path fill-rule="evenodd"
+                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg>
+            <div style="display: flex;flex-direction: column;">
+                <p>密码就是用户名，是绑定聊天记录的，一开始我会给你生成一个随机密码，你可以自己设定一个，可以跨设备看聊天记录</p>
+
+                <div style="display: flex;"> <input id="pwd" type="text" placeholder="密码" />
+                    <button id="submitpwd">进入</button>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("pwd").value = getc("userid");
+        document.getElementById("submitpwd").addEventListener("click", function () {
+            let userInput = document.getElementById("pwd").value;
+            if (userInput && getc("userid") !== userInput) {
+                setc("userid", userInput);
+                // 刷新页面
+
+
+            }
+            modal.style.display = "none";
+            ref1();
+        });
+        var modal = document.getElementById("myModal");
+        var prevButton = document.getElementById("prevSlide");
+        var nextButton = document.getElementById("nextSlide");
+        var closeButton = document.getElementById("closeModal");
+        var pageIndicator = document.getElementById("pageIndicator");
+        var slideIndex = 0;
+        var slides = document.getElementsByClassName("carousel-slide");
+
+        showSlide(slideIndex);
+
+
+        prevButton.onclick = function () {
+            showSlide(slideIndex - 1);
+        }
+
+        nextButton.onclick = function () {
+            showSlide(slideIndex + 1);
+        }
+
+        closeButton.onclick = function () {
+
+            document.getElementById("modal-content1").style.display = "none";
+            document.getElementById("modal-content2").style.display = "flex";
+            playAudio();
+        }
+
+
+
+        function showSlide(index) {
+            if (index < 0) {
+                index = 0;
+            } else if (index >= slides.length) {
+                index = slides.length - 1;
+            }
+            slideIndex = index;
+            for (var i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[index].style.display = "inline-block";
+
+            if (index === 0) {
+                prevButton.style.display = "none";
+            } else {
+                prevButton.style.display = "inline-block";
+            }
+
+            if (index === slides.length - 1) {
+                nextButton.style.display = "none";
+                closeButton.style.display = "inline-block";
+            } else {
+                nextButton.style.display = "inline-block";
+
+            }
+
+            updatePageIndicator();
+        }
+
+        function updatePageIndicator() {
+            pageIndicator.textContent = (slideIndex + 1) + " / " + slides.length;
+        }
+    </script>
+
+
+
+    <div id="back" class="video-background">
+        <!-- <script>
+
+const imgElement = document.getElementById('bgimg');
+      const adjustimgSize = () => {
+        // 计算视频的宽高比
+        const imgAspectRatio = imgElement.width / imgElement.height;
+        const windowAspectRatio = window.innerWidth / window.innerHeight;
+        if (windowAspectRatio < imgAspectRatio) {
+          // 如果容器比例大于视频比例
+          imgElement.style.width = 'auto';
+          imgElement.style.height = '100%';
+        } else {
+          // 如果容器比例小于等于视频比例
+          imgElement.style.width = '100%';
+          imgElement.style.height = 'auto';
+        }
+      };
+      adjustimgSize();light();
+      // // 每当窗口大小发生变化时进行调整
+      window.addEventListener('resize', adjustimgSize);
+
+</script> -->
+        <!-- <script src="js/victor.min.js"></script>
+<script src="js/chroma.min.js"></script>
+<script src="js/simplex-noise.min.js"></script>
+<canvas id="c" style="display: none;"></canvas>
+<script src="js/main.js"></script> -->
+
+
+
+        <!-- <video id="bgVideo" playsinline autoplay muted loop playbackRate="0.5">
+      <source src="http://hcu.icu/bg1.mp4" type="video/mp4" > 
+        </video>
+        <script src="js/video.js"></script> -->
+    </div>
+    <div class="body" style="max-width: 100%;" id="bodyx">
+        <div class="sidebar1" style="display: none;flex-direction: column;">
+            <a href="#" onclick="createFrame('chart.html','负载监控')"
+                style="color: inherit;margin-top: 2rem;text-align: center;">
+                <i class="fa-solid fa-earth-americas fa-2xl"></i>
+            </a>
+        </div>
+
+        <div class="sidebar unnecessary" id="mains1" style="width: 20%;overflow-x: hidden;">
+            <div style="display: flex; flex-direction: row">
+                <style>
+                    .newcbutton {
+                        display: block;
+                        margin-top: 1rem;
+                        white-space: nowrap;
+                        margin-right: 1rem;
+                        padding: 10px 0.5rem;
+                        font-size: 16px;
+                        text-align: center;
+                        text-decoration: none;
+                        border: none;
+
+                        cursor: pointer;
+                        transition: all 0.3s;
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    .newcbutton.create {
+                        background-color: #4CAF50;
+                        color: white;
+                        flex: 10;
+                        border-radius: 4rem;
+                        margin-left: 1rem;
+                    }
+
+                    .newcbutton.refresh {
+                        background-color: #0074D9;
+                        color: white;
+                        border-radius: 0.5rem;
+                    }
+
+                    .create:hover {
+                        background-color: #69ff71;
+                        transform: scale(1.05);
+                    }
+
+                    .refresh:hover {
+                        background-color: #0cb5ed;
+                        transform: scale(1.05);
+                    }
+                </style>
+                <style>
+                    .shrink {
+                        transform: scale(0.95) !important;
+                    }
+
+                    .expand {
+                        transform: scale(1.05) !important;
+                    }
+                </style>
+                <button class="newcbutton create" onclick="newc()">
+                    创建新对话
+                    <span style="margin-left: 0.5rem;">📝</span>
+                </button>
+
+                <button class="newcbutton refresh" onclick="ref1()">
+                    刷新
+                    <span style="margin-left: 0.5rem;">🔄</span>
+                </button>
+                <script>
+                    const buttons = document.querySelectorAll('.newcbutton');
+
+                    buttons.forEach(button => {
+                        button.addEventListener('mousedown', () => {
+                            button.classList.add('shrink');
+                        });
+
+                        button.addEventListener('mouseup', () => {
+                            button.classList.remove('shrink');
+                            button.classList.add('expand');
+                            setTimeout(() => {
+                                button.classList.remove('expand');
+                            }, 300);
+                        });
+                    });
+                </script>
+            </div>
+            <div id="sidebarhead" style="display: flex;flex-direction: column;"></div>
+            <div class="his" id="his">
+            </div>
+        </div>
+        <div id="divider" style="width: 1rem; cursor: col-resize; background: transparent;"></div>
+        <div class="content" id="mains2" style="flex: 3;user-select: none;">
+            <div class="header">
+                <!-- <div class="background-div"><img class="bgp1" src="7.png" /></div> -->
+<div style="display:flex;justify-content: space-between;">  <div>
+    <h1 id="tip1" style="display: inline-block;"></h1>
+    <a href="#" id="tip2" style=" color: inherit;"
+        onclick="sendx('direct.php?message=!'+ prompt('请输入:\n注意,全部人都看得见'));"></a>
+        
+</div>
+<div style="display: flex;justify-content: space-evenly;align-items: flex-end;"> 
+
+    <a href="#" onclick="swichtheme();"
+                style="color: inherit;text-align: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="2rem" width="2rem" class="bi bi-lightbulb-fill"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5z" />
+                </svg>
+            </a>
+            <a href="#" onclick="swichqipao();my1();" style="color: inherit;text-align: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="2rem" width="2rem" class="bi bi-chat" viewBox="0 0 16 16">
+                    <path
+                        d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z" />
+                </svg>
+            </a>
+            <a href="#" onclick="document.body.style.setProperty('--padding', '5%');"
+            style="color: inherit;text-align: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="2rem" width="2rem" class="bi bi-lightbulb-fill"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707zm-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707z"/>
+            </svg>
+        </a>
+</div>
+
+
+</div>
+              
+                <!--  -->
+            <label id="tip3" style="display: block;text-align: center;background-color: #638ec0;"></label>
+
+            </div>
+
+
+            <div id="main" class="main" style="user-select: text;"></div>
+
+
+            <div class="footer" id="footer">
+
+                <textarea type="text" class="input-field" placeholder="输入内容...Shift+回车换行，回车键发送，Shift+删除键清空内容" id="mess"
+                    onkeydown="preventNewLine(event)"></textarea>
+                <div id="submit">
+                    <button id="send1" class="submit-btn" style="display: none;">GPT3</button>
+                    <!-- <button id="send2" class="submit-btn" style="background-color: #000;">GPT4</button> -->
+                </div>
+                <label style="display: flex;flex-direction: column;">
+                    <div><input type="checkbox" id="myCheckbox" checked>中文</div>
+                </label>
+                <script>
+                    var submit_btn = document.getElementById("submit");
+                    var main = document.getElementById("main");
+
+                    // 当鼠标向下滚动时触发事件
+                    var mess = document.getElementById("mess");
+
+                    document.getElementById("send1").addEventListener("click", function () {
+
+                        sendw();
+
+                    });
+
+                    function sendw(url = "wss://www.hcu.icu:8080/") {
+                        if (!mess.value || submit_btn.style.display == "none") {
+                            return;
+                        }
+                        submit_btn.style.display = "none";
+                        mess.readOnly = true;
+                        if (cid == "") {
+                            main.innerHTML = "";
+                        }
+
+                        addmessage("right", mess.value, true, isqipao);
+                        try {
+                            document.getElementById("prep").removeAttribute("id");
+                            // 这里放可能会引发错误的代码
+                        } catch (error) {
+                            // 这里不进行任何处理，即使上面的代码引发了错误
+                        }
+                        addmessage("left", `<span class="qblinking">⬤</span>`, false, isqipao, true);
+                        var prep = document.getElementById("prep");
+
+                        main.scrollTop = main.scrollHeight;
+                        cango = true;
+                        let data = {
+                            add: "",
+                            cid: cid,
+                            pid: pid,
+                            message: mess.value,
+                            userid: getc("userid"),
+                            version: version,
+                        };
+
+
+                        if (document.getElementById("myCheckbox").checked) {
+                            data.add = "#zh-cn\n\n\n";
+                        }
+                        // 使用JSON.stringify将JavaScript对象转化为JSON字符串
+                        if (document.getElementById("myCheckbox").checked && cid == "") {
+                            //data.add = "#zh-cn 今天是七夕节，请你先祝福一下我，再回答一下的问题：\n\n\n";
+                        }
+                        sendz(JSON.stringify(data), prep, url);
+
+
+                    }
+                    mess.addEventListener("input", function () {
+                        // 在这里编写当内容改变时执行的代码
+                        reset();
+                    });
+                </script>
+
+
+            </div>
+
+        </div>
+        <div style="flex: 1;display: none !important;flex-direction: column;">
+            <h1>
+                聊天区
+            </h1>
+            <h4 id="nm"></h4>
+            <div id="chatmain" style="overflow-y: auto;flex :1;">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        var chatmain = document.getElementById("chatmain");
+        addchat("right", "看着喜欢的人和别人嬉戏打闹是什么感受");
+        addchat("left", "@A.Meet：首先是胸口疼一下 然后就是呼吸有点费力 然后无力感压抑感直达心头 心脏会连续疼几下 然后一天都不想说话");
+        addchat("right", "本网站将持续开放到8月帮助各位完成毕设,祝大家前程似锦");
+    </script>
+
+    <script>
+
+
+    </script>
+
+    <script>
+
+        function newc() {
+            cid = "";
+            main.innerHTML = ``;
+            pid = "";
+            document.getElementById("footer").style.display = "flex";
+            addmessage("left", `<p>2023-09-06 公告</p><p>1服恢复使用</p>`, false, true, false);
+            addmessage("left", `<p>2023-09-04 公告</p><p>侦测到GPT官方再次大规模封号，1服已经被封，2服关闭匿名使用</p>`, false, true, false);
+            //addmessage("left", `<img src="pic/avatar.gif" alt="用户头像">`, false, true, false);
+            addmessage("left", `<p>2023-08-31 公告</p>         <p>增设二号服务器”两厢情愿“，数据不互通</p>       <button class="newcbutton refresh" onclick="window.location.href = 'http://hcu.icu';">
+                前往”两厢情愿“服
+                    
+                </button>`, false, true, false);
+            addmessage("left", `<p>2023-08-30 公告</p><p>歌单，把回忆拼好，嘉宾，兰亭序，letting go</p>`, false, true, false);
+
+        }
+        newc();
+        var jsonObjhistory;
+        function ref1() {
+            var userid = getc("userid");
+            document.getElementById("his").innerHTML = "";
+            console.log("请求开始");
+            document.getElementById('his').innerHTML = "正在加载聊天记录";
+            fetch("direct1.php?hisum=" + userid) // 更改为你的PHP脚本的URL
+                .then((response) => {
+                    return response.arrayBuffer();
+                    console.log("请求完成");
+                })
+                .then((arrayBuffer) => {
+                    // 使用pako解压缩
+                    console.log("解压开始");
+
+                    let decompressed = pako.inflate(new Uint8Array(arrayBuffer), {
+                        to: "string",
+                    });
+
+                    jsonObjhistory = JSON.parse(decompressed);
+                    console.log("解压完成");
+                    //创建搜索框
+
+                    if (document.getElementById("searchInput")) {
+                    } else {
+                        var searchInput = document.createElement("input");
+                        searchInput.setAttribute("type", "text");
+                        searchInput.setAttribute("id", "searchInput");
+                        searchInput.setAttribute("placeholder", "搜索标题...");
+                        searchInput.setAttribute("class", "search-input");
+                        searchInput.onkeyup = searchItems; //每次键入时执行搜索操作
+                        document.getElementById("sidebarhead").appendChild(searchInput);
+                    }
+                    function renderItems(items) {
+                        console.log("装填开始");
+                        document.getElementById('his').innerHTML = "";
+                        var count = 0;
+                        document.getElementById("his").innerHTML = ``; // 清空现有元素
+
+                        var vip = getc("vip");
+                        // 记录已进行过的提示
+                        let past4HoursNotificationShown = false;
+                        let todayNotificationShown = false;
+                        let yesterdayNotificationShown = false;
+                        let earlierNotificationShown = false;
+                        // 获取当前时间
+                        const currentTime = new Date();
+                        items.map((item) => {
+
+
+                            var a = document.createElement('bottom');
+                            a.href = "#";
+                            a.id = item.id;
+                            a.onclick = function () { my1(item.id); };
+                            count++;
+
+                            var timeDiv = document.createElement('div');
+                            timeDiv.className = 'time';
+                            timeDiv.textContent = item.last_modified_time;
+
+
+
+                            let givenTime = new Date(item.last_modified_time);
+                            let timeDifference = currentTime - givenTime;
+
+                            if (timeDifference <= 4 * 60 * 60 * 1000) {
+                                // 创建一个 <h2> 元素
+                                const h2Element = document.createElement("h2");
+                                h2Element.textContent = "刚刚"; // 设置 <h2> 内的文本内容
+
+                                if (!past4HoursNotificationShown) {
+                                    document.getElementById('his').appendChild(h2Element);
+                                }
+                                past4HoursNotificationShown = true;
+                            } else if (givenTime.getDate() === currentTime.getDate()) {
+                                // 创建一个 <h2> 元素
+                                const h2Element = document.createElement("h2");
+                                h2Element.textContent = "今天"; // 设置 <h2> 内的文本内容
+
+                                // 将 <h2> 元素添加到父元素中
+                                if (!todayNotificationShown) {
+                                    document.getElementById('his').appendChild(h2Element);
+                                }
+
+                                todayNotificationShown = true;
+                            } else if (givenTime.getDate() === currentTime.getDate() - 1) {
+
+                                // 创建一个 <h2> 元素
+                                const h2Element = document.createElement("h2");
+                                h2Element.textContent = "昨天"; // 设置 <h2> 内的文本内容
+
+                                // 将 <h2> 元素添加到父元素中
+                                if (!yesterdayNotificationShown) {
+                                    document.getElementById('his').appendChild(h2Element);
+                                }
+                                yesterdayNotificationShown = true;
+                            } else if (!earlierNotificationShown) {
+                                // 创建一个 <h2> 元素
+                                const h2Element = document.createElement("h2");
+                                h2Element.textContent = "更早"; // 设置 <h2> 内的文本内容
+
+                                // 将 <h2> 元素添加到父元素中
+                                document.getElementById('his').appendChild(h2Element);
+
+                                earlierNotificationShown = true;
+                            }
+                            if (earlierNotificationShown) {
+                                a.appendChild(timeDiv);
+                            }
+
+
+
+                            var parts = item.title.split("<!@@##$$^^!>");
+
+for (var i = 0; i < parts.length; i++) {
+   
+    var contentDiv = document.createElement('div');
+                            contentDiv.className = 'hiscontent';
+                            contentDiv.textContent = parts[i];  // Assuming the item has a 'content' property
+                            a.appendChild(contentDiv);
+}
+
+                            // Create the 'content' div and add it to the 'a' element
+      
+
+
+                            var contentDiv = document.createElement('div');
+                            contentDiv.className = `local ${count}`;
+                            contentDiv.textContent = item.add2;  // Assuming the item has a 'content' property
+                            a.appendChild(contentDiv);
+                            a.addEventListener('mousedown', () => {
+                                a.style.transform = "scale(0.95)";
+                                console.log("1");
+                            });
+
+
+                            a.addEventListener('mouseleave', () => {
+
+                                a.style.transform = "scale(1)";
+
+                            });
+                            a.addEventListener('mouseenter', () => {
+                                a.style.transform = "scale(1.05)";
+                            });
+                            a.addEventListener('mouseup', () => {
+
+                                setTimeout(function () {
+                                    a.style.transform = "scale(1)";
+                                }, 200);
+                            });
+
+
+                            document.getElementById('his').appendChild(a);
+
+
+
+
+                        });
+                        console.log(count);
+                        if (count == 0) {
+                            document.getElementById('his').innerHTML = "你还没有聊天记录";
+                        }
+                        console.log("装填完成");
+                    }
+
+                    function searchItems() {
+                        let searchTerm = document.getElementById("searchInput").value;
+                        let filteredItems = jsonObjhistory.data.filter((item) =>
+                            item.title.replace(/<!@@##\$\$\^\^!>/g, '').includes(searchTerm)
+                        );
+                        renderItems(filteredItems); // 基于搜索结果重新渲染元素
+                    }
+
+                    renderItems(jsonObjhistory.data); //初次加载时渲染所有元素
+                    return;
+                })
+                .catch(
+                    () =>{
+                        document.getElementById('his').innerHTML = "加载失败";
+                    }
+                )
+                ;
+        }
+
+
+
+        // 选取class为'sidebar'的元素
+        function mobile() {
+            main.style.fontSize = getc("fontsize1") + "rem";
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            if (/android/i.test(userAgent) || /iPad|iPhone|iPod/.test(userAgent)) {
+                document.body.style.zoom = "65%";
+                document.body.style.setProperty("--padding", "0");
+                main.style.fontSize = "1.5rem";
+            }
+
+            
+        } mobile();
+        const unnecessaryElements = document.querySelectorAll('.unnecessary');
+
+        // 遍历元素列表，将每个元素的style.display属性设置为"none"
+
+        // 创建一个函数来检查并更新sidebar的display属性
+        function checkViewport() {
+            // 获取视口宽度和高度
+            let viewportWidth = window.innerWidth;
+            let viewportHeight = window.innerHeight;
+
+            // 当视口宽度小于高度时，设置sidebar的display属性为'none'
+            if (viewportWidth < viewportHeight) {
+                for (const element of unnecessaryElements) {
+                    element.style.display = 'none';
+                }
+            } else {
+                // 否则，设置sidebar的display属性为'flex'
+                for (const element of unnecessaryElements) {
+                    element.style.display = 'flex';
+                }
+            }
+        }
+
+        // 当窗口尺寸改变时，调用checkViewport函数
+        window.addEventListener('resize', checkViewport);
+
+        // 当页面加载时，也调用checkViewport函数，以确保初始页面加载时sidebar的display属性设置正确
+        window.addEventListener('load', checkViewport);
+
+        setInterval(function () {
+            gettip();
+        }, 60000);
+        gettip();
+
+
+
+
+
+    </script>
+    <script>
+        var dragFlag = false; // 拖动标志位
+        var frame = null; // iframe
+
+        // 创建 iframe 窗口
+        function createFrame(url, title1) {
+            if (frame) {
+                return; // 防止多次创建
+            }
+
+            var container = document.createElement("div");
+            container.id = "frameContainer";
+            container.addEventListener("mousedown", function (e) {
+                dragFlag = true;
+                this.startX = e.clientX;
+                this.startY = e.clientY;
+                this.startLeft = parseInt(window.getComputedStyle(this).left);
+                this.startTop = parseInt(window.getComputedStyle(this).top);
+            });
+
+            container.addEventListener("mouseup", function (e) {
+                dragFlag = false;
+            });
+
+            container.addEventListener("mousemove", function (e) {
+                if (dragFlag) {
+                    var deltaX = e.clientX - this.startX;
+                    var deltaY = e.clientY - this.startY;
+                    this.style.left = (this.startLeft + deltaX) + "px";
+                    this.style.top = (this.startTop + deltaY) + "px";
+                }
+            });
+
+            var title = document.createElement("div");
+            title.id = "frameTitle";
+            title.innerHTML = title1;
+            title.addEventListener('mouseleave', (event) => {
+                dragFlag = false;
+            });
+            var closeBtn = document.createElement("div");
+            closeBtn.id = "frameClose";
+            closeBtn.innerHTML = "X";
+            closeBtn.addEventListener("click", function (e) {
+                container.parentNode.removeChild(container);
+                frame = null;
+            });
+
+            title.appendChild(closeBtn);
+            container.appendChild(title);
+
+            frame = document.createElement("iframe");
+            frame.src = url;
+
+            container.appendChild(frame);
+            document.body.appendChild(container);
+        }
+    </script>
+
+
+    <div id="draggableDiv">
+
+        <table id="weatherTable">
+            <caption id="weather"></caption>
+            <tr>
+                <th>日期</th>
+                <th>温度</th>
+                <th>天气</th>
+            </tr>
+        </table>
+
+
+        <div style="display: flex;width: 100%;justify-content: space-evenly;"> 
+
+            <a href="#" id="playButton" style="color: inherit;text-align: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+                    <path
+                        d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z" />
+                </svg><br>音乐
+            </a>
+            <a href="#" onclick="randomMusic();" style="color: inherit;text-align: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-earmark-music-fill"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM11 6.64v1.75l-2 .5v3.61c0 .495-.301.883-.662 1.123C7.974 13.866 7.499 14 7 14c-.5 0-.974-.134-1.338-.377-.36-.24-.662-.628-.662-1.123s.301-.883.662-1.123C6.026 11.134 6.501 11 7 11c.356 0 .7.068 1 .196V6.89a1 1 0 0 1 .757-.97l1-.25A1 1 0 0 1 11 6.64z" />
+                </svg><br>切歌
+            </a>
+            <a href="#" onclick="hide();" style="color: inherit;text-align: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-through-heart-fill"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.854 15.854A.5.5 0 0 1 2 15.5V14H.5a.5.5 0 0 1-.354-.854l1.5-1.5A.5.5 0 0 1 2 11.5h1.793l3.103-3.104a.5.5 0 1 1 .708.708L4.5 12.207V14a.5.5 0 0 1-.146.354l-1.5 1.5ZM16 3.5a.5.5 0 0 1-.854.354L14 2.707l-1.006 1.006c.236.248.44.531.6.845.562 1.096.585 2.517-.213 4.092-.793 1.563-2.395 3.288-5.105 5.08L8 13.912l-.276-.182A23.825 23.825 0 0 1 5.8 12.323L8.31 9.81a1.5 1.5 0 0 0-2.122-2.122L3.657 10.22a8.827 8.827 0 0 1-1.039-1.57c-.798-1.576-.775-2.997-.213-4.093C3.426 2.565 6.18 1.809 8 3.233c1.25-.98 2.944-.928 4.212-.152L13.292 2 12.147.854A.5.5 0 0 1 12.5 0h3a.5.5 0 0 1 .5.5v3Z" />
+                </svg><br>隐藏
+            </a>
+            <script>
+
+                function hide() {
+                    document.getElementById("draggableDiv").style.display = "none";
+                    // 设置定时器，延迟两分钟执行代码块
+                    const twoMinutes = 2 * 60 * 1000; // 2分钟的毫秒数
+                    setTimeout(() => {
+                        document.getElementById("draggableDiv").style.display = "flex";
+                    }, twoMinutes);
+                }
+            </script>
+        </div>
+
+        <div style="display: none;"> <input id="message-input" type="text" placeholder="这里是聊天" />
+            <button id="send-button">发送</button>
+        </div>
+
+        <div id="lyrics-container"></div>
+        <div id="lyrics-2" style="text-align: right;width: 100%;"></div>
+        <audio id="myAudio">
+            <source type="audio/mpeg">
+            你的浏览器不支持audio标签。
+        </audio>
+        <script>
+            const audioElement = document.getElementById('myAudio');
+            var glyrics = [];
+            const music = [
+            {
+                    url: "https://www.hcu.icu/music/jb.m4a",
+                    lrc: "https://www.hcu.icu/music/jb.lrc",
+                    timeOffset: 0,
+                },
+                {
+                    url: "https://www.hcu.icu/music/hy.m4a",
+                    lrc: "https://www.hcu.icu/music/hy.lrc",
+                    timeOffset: 0,
+                },
+                {
+                    url: "https://www.hcu.icu/music/ltg.mp3",
+                    lrc: "https://www.hcu.icu/music/ltg.lrc",
+                    timeOffset: 0,
+                },
+                {
+                    url: "https://www.hcu.icu/music/ltx.mp3",
+                    lrc: "https://www.hcu.icu/music/ltx.lrc",
+                    timeOffset: 0,
+                },
+            ];
+
+            function randomMusic() {
+
+                const randomIndex = generateRandomIndex(music.length);
+                const selectedmusic = music[randomIndex];
+                // 获取音频元素
+                fetch(selectedmusic.lrc)
+                    .then(response => response.text())
+                    .then(data => {
+                        glyrics = parseLRC(data, selectedmusic.timeOffset);
+                    });
+                audioElement.src = selectedmusic.url;
+                audioElement.load();
+                audioElement.play();
+
+
+
+            }
+            randomMusic();
+
+
+
+
+            function displayTextWithSpeed(dom, content, speed) {
+                const textContainer = document.getElementById(dom);
+                if (!textContainer) return;
+
+                textContainer.textContent = '';
+
+                let index = 0;
+                function displayText() {
+                    if (index < content.length) {
+                        textContainer.textContent += content.charAt(index);
+                        index++;
+                        setTimeout(displayText, speed);
+                    }
+                }
+
+                displayText();
+            }
+
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const randomValue = Math.random();
+
+                if (randomValue < 0.5) {
+                    light();
+                } else {
+                    
+                }
+                dark(2);
+                const lyricsContainer = document.getElementById('lyrics-container');
+
+                // 监听播放完毕事件
+                audioElement.addEventListener('ended', () => {
+                    randomMusic();
+                });
+                let currentLine = -1;
+                audioElement.addEventListener('timeupdate', function () {
+
+                    const currentTime = audioElement.currentTime;
+                    // 查找当前播放时间对应的歌词行
+                    for (let i = 0; i < glyrics.length - 1; i++) {
+                        if (currentTime >= glyrics[i].time && currentTime < glyrics[i + 1].time) {
+                            if (currentLine !== i) {
+                                currentLine = i;
+                                document.getElementById('lyrics-2').innerHTML = glyrics[i + 1].text;
+                                displayTextWithSpeed('lyrics-container', glyrics[i].text, 50);
+                            }
+                            break;
+                        }
+                    }
+                });
+
+            });
+
+        </script>
+
+        <script>
+            var myAudio = document.getElementById("myAudio");
+            var playButton = document.getElementById("playButton");
+
+            playButton.addEventListener("click", function (e) {
+                e.preventDefault();
+                if (myAudio.paused) {
+                    myAudio.play();
+                    playButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+  <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+</svg><br>音乐`;
+                } else {
+                    myAudio.pause();
+                    playButton.innerHTML = `                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+                    <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+                  </svg><br>音乐`;
+                }
+            });
+
+
+            function playAudio() {
+
+
+                myAudio.play();
+                playButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+  <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+</svg><br>音乐`;
+                // document.removeEventListener("click", playAudio);
+                // document.removeEventListener("keydown", playAudio);
+
+            }
+
+            // document.addEventListener("click", playAudio);
+            // document.addEventListener("keydown", playAudio);
+        </script>
+
+
+        <script>
+            // let textArray = []; // 定义一个空的文本数组
+
+
+            // // 创建 websocket 连接
+            // const socket1 = new WebSocket("ws://hcu.icu:8765");
+
+            // // 监听消息
+            // socket1.addEventListener('message', function (event) {
+
+            //     // 更新聊天日志
+
+            //     let messages = JSON.parse(event.data);
+            //     if ("count" in messages) {
+            //         document.getElementById("nm").innerHTML = "在线" + messages.count + "人";
+            //     } else {
+            //         for (let value of messages) {
+            //             var obj = JSON.parse(value);
+
+            //             if (obj.message != "") {
+            //                 if (!textArray.includes(obj.cid)) {
+            //                     if (obj.uid === getc("userid")) {
+            //                         addchat("right", obj.message, false);
+            //                     } else {
+            //                         if (obj.uid == "vip") {
+            //                             addchat("vip", obj.message, false);
+            //                         } else {
+            //                             addchat("left", obj.message);
+            //                         }
+            //                     }
+            //                     textArray.push(obj.cid);
+            //                     chatmain.scrollTop = chatmain.scrollHeight;
+            //                 }
+            //             }
+            //         }
+
+            //     }
+
+            // });
+
+            // // 监听发送按钮
+            // document.getElementById('send-button').addEventListener('click', function () {
+            //     // 发送消息
+            //     let message = document.getElementById('message-input').value;
+            //     if (message.trim() === '') {
+            //         // message为空
+            //         return;
+            //     }
+            //     let data = {
+            //         uid: getc("userid"),
+            //         cid: generateRandomString(5),
+            //         message: message,
+            //     };
+            //     socket1.send(JSON.stringify(data));
+            //     document.getElementById('message-input').value = '';
+            //     textArray.push(data.cid); // 如果不在数组中，就添加到数组中
+            //     addchat("right", message);
+            //     chatmain.scrollTop = chatmain.scrollHeight;
+            // });
+        </script>
+        <script>
+            let draggableDiv = document.getElementById('draggableDiv');
+            let inputField = document.getElementById('message-input');
+
+            let offsetX, offsetY;
+
+            draggableDiv.addEventListener('mousedown', mouseDown);
+            draggableDiv.addEventListener('touchstart', touchStart);
+            inputField.addEventListener('mousedown', (event) => event.stopPropagation());
+            document.getElementById("pwd").addEventListener('mousedown', (event) => event.stopPropagation());
+            window.addEventListener('resize', adjustPosition);
+
+            function mouseDown(event) {
+                offsetX = event.clientX - draggableDiv.getBoundingClientRect().left;
+                offsetY = event.clientY - draggableDiv.getBoundingClientRect().top;
+
+                document.addEventListener('mousemove', mouseMove);
+                document.addEventListener('mouseup', mouseUp);
+            }
+
+            function touchStart(event) {
+                var touch = event.touches[0];
+                offsetX = touch.clientX - draggableDiv.offsetLeft / calculateReciprocalFromPercentage(document.body.style.zoom);
+                offsetY = touch.clientY - draggableDiv.offsetTop / calculateReciprocalFromPercentage(document.body.style.zoom);
+                document.addEventListener('touchmove', touchMove, { passive: false });
+                document.addEventListener('touchend', touchEnd);
+            }
+
+            function mouseMove(event) {
+                moveDiv(event.clientX, event.clientY);
+            }
+
+            function touchMove(event) {
+                var touch = event.touches[0];
+                touchmoveDiv(touch.clientX, touch.clientY);
+
+                event.preventDefault(); // 防止页面滚动
+            }
+
+            function mouseUp() {
+                document.removeEventListener('mousemove', mouseMove);
+                document.removeEventListener('mouseup', mouseUp);
+                enableTextSelection();
+            }
+
+            function touchEnd() {
+                document.removeEventListener('touchmove', touchMove);
+                document.removeEventListener('touchend', touchEnd);
+            }
+
+            function adjustPosition() {
+                const rect = draggableDiv.getBoundingClientRect();
+                const x = Math.min(rect.left, window.innerWidth - rect.width);
+                const y = Math.min(rect.top, window.innerHeight - rect.height);
+                draggableDiv.style.left = Math.max(0, x) + 'px';
+                draggableDiv.style.top = Math.max(0, y) + 'px';
+            }
+
+            function moveDiv(clientX, clientY) {
+                disableTextSelection();
+                const x = clientX - offsetX;
+                const y = clientY - offsetY;
+                if (window.getSelection) {
+                    if (window.getSelection().empty) {  // Chrome
+                        window.getSelection().empty();
+                    } else if (window.getSelection().removeAllRanges) {  // Firefox
+                        window.getSelection().removeAllRanges();
+                    }
+                } else if (document.selection) {  // IE
+                    document.selection.empty();
+                }
+
+                // 视口边界检查
+                if (x >= 0 && y >= 0 && x <= (window.innerWidth - draggableDiv.offsetWidth) && y <= (window.innerHeight - draggableDiv.offsetHeight)) {
+                    draggableDiv.style.left = x + 'px';
+                    draggableDiv.style.top = y + 'px';
+                } else {
+                    offsetX = clientX - draggableDiv.getBoundingClientRect().left;
+                    offsetY = clientY - draggableDiv.getBoundingClientRect().top;
+                }
+            }
+            function touchmoveDiv(clientX, clientY) {
+                const x = clientX - offsetX;
+                const y = clientY - offsetY;
+
+                // 视口边界检查
+                if (x >= 0 && y >= 0 && x <= (window.innerWidth - draggableDiv.offsetWidth / calculateReciprocalFromPercentage(document.body.style.zoom)) && y <= (window.innerHeight - draggableDiv.offsetHeight / calculateReciprocalFromPercentage(document.body.style.zoom))) {
+                    draggableDiv.style.left = x * calculateReciprocalFromPercentage(document.body.style.zoom) + 'px';
+                    draggableDiv.style.top = y * calculateReciprocalFromPercentage(document.body.style.zoom) + 'px';
+                } else {
+                    offsetX = clientX - draggableDiv.offsetLeft / calculateReciprocalFromPercentage(document.body.style.zoom);
+                    offsetY = clientY - draggableDiv.offsetTop / calculateReciprocalFromPercentage(document.body.style.zoom);
+                }
+            }
+        </script>
+        <script>
+
+            document.addEventListener('wheel', function (event) {
+                cango = (main.scrollHeight - main.offsetHeight - main.scrollTop < 5);
+            });
+            // 创建一个变量来保存Alt键的状态
+            var altKeyPressed = false;
+
+            // 添加按键按下事件监听器
+            document.addEventListener('keydown', function (event) {
+                // 检查是否按下了Alt键
+                if (event.key === "Shift") {
+                    if (!altKeyPressed) {
+                        altKeyPressed = true;
+                        document.addEventListener('wheel', handleScroll);
+                    }
+                }
+            });
+
+            // 添加按键松开事件监听器
+            document.addEventListener('keyup', function (event) {
+                // 检查是否松开了Alt键
+                if (event.key === "Shift") {
+                    altKeyPressed = false;
+                    document.removeEventListener('wheel', handleScroll);
+                }
+            });
+            function preventNewLine(event) {
+                if (event.keyCode === 13 && !altKeyPressed) {
+                    event.preventDefault(); sendw();
+                }
+                if (event.key === "Backspace" && altKeyPressed) {
+                    mess.value = ""; reset();
+                }
+            }
+            // 获取页面上的元素
+
+            function addsize() {
+
+let size = getc("fontsize1");
+
+
+size = parseFloat(size); // 将字符串转换为数值
+
+if (size < 4) {
+    size += 0.1;
+                }
+
+
+
+size = convertToSingleDecimal(size);
+
+
+setc("fontsize1", size);
+
+
+main.style.fontSize = size + "rem";
+
+}
+            function minussize() {
+                let size = getc("fontsize1");
+
+                if (size > 0.8) {
+                    size -= 0.1;
+                }
+                size=convertToSingleDecimal(size);
+                setc("fontsize1", size);
+                main.style.fontSize = size + "rem";
+            }
+            // 定义滚轮事件的回调函数
+            function handleScroll(event) {
+ 
+                if (event.deltaY > 0) {
+                    addsize();
+                    console.log("增加");
+                } else {
+                    minussize();
+                }
+            }
+
+        </script>
+        <script>
+            const divider = document.getElementById("divider");
+
+            divider.addEventListener('mousedown', function (event) {
+                disableTextSelection();
+                document.addEventListener('mousemove', adjustMouse);
+            });
+
+            divider.addEventListener('touchstart', function (event) {
+                disableTextSelection();
+                event.preventDefault();
+                document.addEventListener('touchmove', adjustTouch);
+            });
+            // main.addEventListener('touchstart', function(event) {
+            //     event.preventDefault();
+            // });
+            document.addEventListener('mouseup', function (event) {
+                document.removeEventListener('mousemove', adjustMouse);
+                enableTextSelection();
+            });
+
+            document.addEventListener('touchend', function (event) {
+                document.removeEventListener('touchmove', adjustTouch);
+                enableTextSelection();
+            });
+
+            const rootComputedStyle = window.getComputedStyle(document.documentElement);
+            const fontSize = parseFloat(rootComputedStyle.fontSize);
+
+            function adjustMouse(event) {
+                document.getElementById("mains1").style.width = event.clientX - fontSize / 4 + "px";
+            }
+
+            function adjustTouch(event) {
+
+                document.getElementById("mains1").style.width = event.touches[0].clientX * calculateReciprocalFromPercentage(document.body.style.zoom) + "px";
+            }
+            // 禁止文字选中
+            function disableTextSelection() {
+                if (typeof document.onselectstart !== 'undefined') {
+                    document.onselectstart = function () {
+                        return false;
+                    };
+                } else {
+                    document.addEventListener('mousedown', disableMouseSelection);
+                }
+            }
+
+            // 恢复文字选中
+            function enableTextSelection() {
+                if (typeof document.onselectstart !== 'undefined') {
+                    document.onselectstart = null;
+                } else {
+                    document.removeEventListener('mousedown', disableMouseSelection);
+                }
+            }
+
+            // 在mousedown事件期间禁止鼠标选中
+            function disableMouseSelection(event) {
+                event.preventDefault();
+            }
+
+
+        </script>
+
+    </div>
+
+
 </body>
+
 </html>
