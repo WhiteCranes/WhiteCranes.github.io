@@ -3,7 +3,22 @@
 
 <head>
     <meta charset="UTF-8" />
+ <script>
+
+            const urlParams = new URLSearchParams(window.location.search);
+        var server="https://www.hcu.icu/";
+        if (urlParams.get('server')=="2"){
+            var server="https://hcu.icu/";
+        }
+     
+ </script>
+
+    
     <script src="js/new.js"></script>
+
+
+
+    
     <link id="newcss" rel="stylesheet" href="">
     <script src="js/marked.min.js"></script>
     <script src="js/pako_inflate.min.js"></script>
@@ -15,11 +30,7 @@
     <script>
         newcss.href = "css/new.css?" + generateRandomString(10);
 
-        const urlParams = new URLSearchParams(window.location.search);
-        var server="https://www.hcu.icu/";
-        if (urlParams.get('server')=="2"){
-            var server="https://hcu.icu/";
-        }
+
         // 判断是否为 HTTP
         if (window.location.protocol !== "https:") {
             // 构造新的 HTTPS 地址
@@ -34,7 +45,6 @@
         var model = "";
         var cango = true;
         var version = "";
-        const urlParams = new URLSearchParams(window.location.search);
         // 发起GET请求
         fetch(server+'direct1.php?version')
             .then(response => response.text())
