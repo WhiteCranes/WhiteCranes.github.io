@@ -1,0 +1,323 @@
+:root {
+  --padding: 20%;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.5s ease;
+  
+  --flex: column;
+}
+    .message {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      clear: both;
+      position: relative;
+      min-width: 35px;
+      max-width: calc(100% - var(--padding) * 2.1);
+    }
+
+
+    .message video {
+max-width: 100%;
+      
+    }
+    .me {
+      background-color: #62adf3;
+      color: white;
+      float: right;
+
+   
+    margin-right: var(--padding);
+    }
+    .me div{
+      max-height: 80vh;
+      overflow-y: auto;
+      overflow-wrap: break-word;
+    white-space: pre-wrap;
+    }
+    
+    .you {
+      background-color: #98989842;
+      color: inherit;
+      float: left;
+      text-align: left;
+      margin-left: var(--padding);
+backdrop-filter: blur(4px);
+      
+    }
+    .vip {
+      background-color: #7cd500;
+
+    }
+    .avatar {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      position: absolute;
+      z-index: 2;
+      animation: rotateAnimation 4s infinite linear;
+    }
+    
+    .me .avatar {
+      right: -4rem;
+      top: 0;
+    }
+    
+    .you .avatar {
+      left: -4rem;
+      top: 0;
+    }
+    
+
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.blinking {
+  animation: blink 1s infinite;
+}
+.qblinking {
+  animation: blink 0.5s infinite;
+}
+  ::-webkit-scrollbar {
+    width: 0.4rem;
+    height: 10px;
+}
+
+/* 定义滚动条轨道 */
+::-webkit-scrollbar-track {
+    background: #7775; 
+}
+  .body {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    
+  }
+.hiscontent{
+  white-space: nowrap;
+  overflow-x: hidden ;
+  font-weight: 900;
+}
+  .his {
+    overflow-y: auto;
+    flex: 1;
+  }
+pre button{
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version */
+  
+}
+#his bottom{
+  MARGIN: 1REM;
+  border-radius: 1rem;
+    font-family: "SimHei";
+    PADDING: 0.3rem 0px 0.3rem 0px;
+    color: inherit;
+    display: block;
+    text-decoration: none;
+    overflow-wrap: break-word;
+    white-space: normal;
+    transition: all 0.3s ease-in-out;
+    border: 0.2rem solid transparent;
+}
+#his bottom:hover {
+  border-color: currentColor;
+}
+#his bottom div{
+  text-overflow: ellipsis;
+}
+
+.header{
+  position: absolute;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  z-index:2;
+}
+  .content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+  }
+
+  .content pre {
+    overflow-x: auto;
+  }
+
+  .bodyer {
+    flex: 1;
+    display: flex;
+    flex-direction: var(--flex);
+    overflow-y: auto;
+  }
+
+  h1,h5 {
+    margin: 0;
+    /* line-height: 100%; */
+  }
+
+  .main {
+    flex: 10;
+    overflow-y: auto;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+  }
+
+ 
+
+  .user {
+    border-top: 1px solid #777;
+    border-bottom: 1px solid #777;
+    background-color: #7774;
+    max-height: 80%;
+    overflow-y: auto;
+  }
+
+  .user{
+    margin: 0;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+
+  .ans,
+  .user {
+    
+    clear: both;
+    font: weight 3px;
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+
+  .footer {
+    display: flex;
+    padding: 5px;
+    box-sizing: border-box;
+    flex-direction: row;
+    margin-left: var(--padding);
+    margin-right: var(--padding);
+  }
+
+  .input-field {
+    flex: 10;
+    outline: none;
+    padding: 3px;
+    border-radius: 1rem;
+    border: 3px solid #777;
+    transition: border 0.3s ease-in-out;
+    background-color: transparent;
+    resize: none;
+    font-size: 16px;
+    color: inherit;
+  }
+  .input-field:focus {
+    border: 3px solid currentColor;
+  }
+  .submit-btn {
+    padding: 10px 10px;
+    background-color: #085301;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.5s ease;
+  }
+
+  .submit-btn:hover {
+    background-color: #747474;
+  }
+
+  #back video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* min-width: 100%;
+    min-height: 100%; */
+    z-index: -1000;
+    transform: translateX(-50%) translateY(-50%);
+    background: no-repeat;
+    background-size: cover;
+  }
+
+  #bgimg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* min-width: 100%;
+    min-height: 100%; */
+    z-index: -1000;
+    transform: translateX(-50%) translateY(-50%);
+    background: no-repeat;
+    background-size: cover;
+  }
+
+  .copy-button {
+    display: flex;
+    justify-content: center;
+    line-height: 25px;
+    padding: 5px;
+    width: 100%;
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .copy-button:hover {
+    background-color: #2980b9;
+  }
+
+
+  .context-menu {
+    border: 2px solid #000;
+    position: absolute;
+    background-color: #fff9;
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .context-menu-option {
+    padding: 5px;
+    color: black;
+    cursor: pointer;
+    background-color: transparent;
+    text-align: left;
+    font-size: 18px;
+    border: 0;
+    width: 100%;
+  }
+  .context-menu-option:hover {
+    background-color: #7777;
+  }

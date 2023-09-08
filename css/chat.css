@@ -1,0 +1,502 @@
+
+html {
+    --w: 20%;
+    /* background-size: 500%;
+
+    animation: bgAnimation 10s linear infinite; */
+  }
+body div{
+    transition: filter 0.5s ease-in-out;
+
+}
+#in1 {
+    font-size: 25px;
+    /* font-family: "楷体", "KaiTi", "STKaiti", sans-serif; */
+    position: fixed;
+    top: 30px;
+    left: var(--w);
+    text-align: center;
+    /* width: calc(100% - 250px); */
+    right: 0;
+    height: 30px;
+    background-color: rgb(2, 180, 204);
+    color: #fff;
+    z-index: 2;
+    line-height: 30px;
+  }
+
+  #tip {
+
+    margin: 0;
+
+  }
+.user xmp{
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+xmp{
+margin: 0;
+}
+#hist xmp{
+    /* white-space: nowrap; */
+    /* display: inline-block; */
+    white-space: normal;
+overflow-wrap: break-word;
+
+    }
+.copy-button {
+    height: 40px;
+    position: absolute;
+    /* left: 15px; */
+    right: 70px;
+    /* top:15px; */
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    /* background-color: #ddd; */
+    border: none;
+    border-radius: 3px;
+  }
+  /* 定义滚动条宽度 */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* 定义滚动条轨道 */
+::-webkit-scrollbar-track {
+    background: #7775; 
+}
+
+/* 定义滚动滑块 */
+/* ::-webkit-scrollbar-thumb {
+    background: #FFF; 
+} */
+
+/* 在滚动滑块鼠标悬停时添加样式 */
+::-webkit-scrollbar-thumb:hover {
+    /* background: #555;  */
+    
+}
+
+.user {
+    white-space: pre;
+    display: block;
+    font-family: Arial, sans-serif;
+    /* font-size: 30px; */
+    /* font-weight: bold; */
+    overflow: auto;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(15px);
+    background-color: var(--color-border-muted);
+    border: 0px solid;
+    border-color: currentColor;
+    background-image: url("chat.svg");
+    background-position: left top; /* 图片居左 */
+    background-repeat: no-repeat; /* 不重复显示 */
+    background-size: 70px auto;
+    padding-left: 80px; /* 为避免文本被图片覆盖，设置一定的左内边距 */
+    /* padding-bottom: 20px; */
+    /* line-height: 70px; */
+    margin-bottom: 20px;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 15px;
+    min-height: 58px;
+    padding-top: 12px;
+}
+.gpt,.b,.gpt4{
+    min-height: 70px;
+    
+    background-position: left top; /* 图片居左 */
+    background-repeat: no-repeat; /* 不重复显示 */
+    background-size: 70px auto;
+    padding-left: 80px; /* 为避免文本被图片覆盖，设置一定的左内边距 */
+    padding-bottom: 1px;
+    min-height: 85px;
+    /* padding-top: 14px; */
+    
+}
+.gpt{
+    background-image: url("chatgpt.svg");
+}
+.b{
+    background-image: url("bing.svg");
+}
+.gpt4{
+    background-image: url("gpt4.svg");
+}
+pre code{
+    color: #000;
+}
+/* html{
+    background-color: #000;
+} */
+/* #sel{
+    font-weight: bold;
+    animation: blink 1s infinite;
+} */
+#hist {
+    position: fixed;
+    /* position: absolute; */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--w);
+    /* height: 100%; */
+    background-color: transparent;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+}
+
+
+#hist a {
+    max-height: 40%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    border-bottom: 1px dashed #777;
+    --h: 40px;
+    width: 100%;
+    /* overflow: hidden; */
+    text-align: center;
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+    line-height: var(--h);
+    /* height: var(--h); */
+    font-size: calc(var(--h) / 2);
+    background-color: transparent;
+    transition: background-color 0.5s ease;
+    /* 定义过渡效果 */
+}
+
+#hist a:visited {
+    color: inherit;
+}
+
+#in {
+    position: fixed;
+    top: 0;
+    left: var(--w);
+    text-align: center;
+    right: 0px;
+    /* width: calc(100% - 250px); */
+    height: 30px;
+    background-color: #333;
+    color: #fff;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(15px);
+    background-color: rgba(60, 60, 60, 0.4);
+    /* -webkit-transform: translateZ(0);
+          transform: translateZ(0); */
+    z-index: 2;
+
+}
+
+#in button {
+    height: 80px;
+
+}
+
+#in pre {
+    /* position:absolute; */
+    display: inline;
+    top: 0;
+    /* width:100%; */
+    left: 50%;
+    transform: translateX(-50%);
+
+    color: #FFF;
+    font-size: 35px;
+    text-align: center;
+    margin: 0;
+    overflow: hidden;
+
+    line-height: 40px;
+}
+
+#in #tools {
+    display: flex;
+    justify-content: space-between;
+    background-color: #00000022;
+    position: absolute;
+    text-align: left;
+    /* top:40px; */
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    /* color: #FFF; */
+    font-size: 20px;
+    line-height: 30px;
+    /* text-align: center; */
+    margin: 0;
+    overflow: hidden;
+    /* display: block; */
+    /* line-height: 20px; */
+}
+
+#tools a {
+
+    display: inline-block;
+    color: #FFF;
+    /* font-size: 6px; */
+
+    margin: 0;
+
+    
+}
+
+#tools h5 {
+    display: inline-block;
+    color: #FFF;
+    /* font-size: 6px; */
+
+    margin: 0;
+
+}
+
+#tool {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 3;
+
+    width: 100px;
+    /* backdrop-filter: blur(5px);
+              -webkit-backdrop-filter: blur(15px);
+              background-color: rgba(40, 40, 40, 0.6); */
+}
+
+#tool a {
+    display: block;
+    color: #FFF;
+    width: 100%;
+    text-align: center;
+    /* backdrop-filter: blur(5px);
+              -webkit-backdrop-filter: blur(15px); */
+    background-color: green;
+}
+
+#c1{
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none; /* 隐藏滚动条宽度 */
+    -ms-overflow-style: none; /* 隐藏滚动条在IE/Edge浏览器中 */
+    height: calc(100% - 70px);
+    padding-left: 300px;
+    padding-right: 50px;
+    padding-top: 70px;
+    width: calc(100% - 350px);
+    /* padding-bottom: 30vh; */
+    /* margin-bottom: 30vh;*/
+}
+#c::-webkit-scrollbar {
+    display: none; /* 隐藏滚动条在Chrome、Safari、Opera等浏览器中 */
+} 
+
+#chat {
+    
+    position: absolute;
+    left: var(--w);
+    /* bottom: 0; */
+    top: 0;
+    right: 0;
+    z-index: 1;
+    /* margin-bottom: 50vh; */
+    /* padding-bottom: 10%; */
+    padding-top: 80px;
+    /* margin-left: 300px; */
+    /* left: calc(var(--w) + 50px);
+    right: 50px; */
+ 
+    padding-left: 50px;
+    padding-right: 50px;
+    /* width: calc(100% - 350px); */
+}
+
+#chat pre {
+    margin-top: 0;
+    /* position: relative; */
+    /* padding-top: 45px; */
+    /* margin-bottom: 50vh; */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#chat h5 {
+    font-weight: normal;
+    margin-top: 0;
+    line-height: 40px;
+    margin-bottom: 50vh;
+    font-size: 25px;
+    word-wrap: break-word;
+}
+
+#chat h5 mark {
+
+    line-height: 30px;
+
+    font-size: 25px;
+
+}
+
+#chat-input {
+    border-top: 0;
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    /* padding: 10px; */
+    /* height: 120px; */
+    background-color: #fff;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    left: var(--w);
+    /* width: calc(100% - 250px); */
+    /* 将元素的左侧边缘定位在页面中心 */
+    /* transform: translateX(-50%);  */
+    /* 通过将元素的宽度的一半向左移动来使其水平居中 */
+    backdrop-filter: blur(30px);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#chat-input textarea {
+    /* min-height: 120px; */
+    max-height: 50vh;
+    flex-grow: 1;
+    resize: none;
+    border: none;
+    height: 100%;
+    margin-right: 10px;
+    background-color: rgba(0, 0, 0, 0.295);
+    font-size: 25px;
+    color: white;
+}
+
+::placeholder {
+    color: white;
+}
+
+#chat-input button {
+    padding: 10px 0px;
+    margin: 2px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#chat-input button:hover {
+    background-color: #0550ae;
+}
+
+#chat-input #send2 {
+    background-color: rgb(31, 204, 83);
+}
+
+#chat-input #send1 {
+    background-color: rgb(31, 204, 83);
+}
+
+.container {
+    position: fixed;
+    /* 使用fixed属性来实现不可滚动 */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* 使用vw单位来实现宽度与页面一致 */
+    height: 100vh;
+    /* 使用vh单位来实现高度与页面一致 */
+    z-index: -1;
+    /* 使用负的z-index属性来使该div在所有其他div的底层 */
+
+}
+
+
+
+
+/* @media (prefers-color-scheme: dark) {
+  body.dark-mode  {
+      background-color: #111;
+      color: #FFF;
+  }#hist a:hover  {
+    background-color: rgba(150, 150, 150, 0.6);
+  }        
+  }
+  
+  @media (prefers-color-scheme: light) {
+  
+  body.light-mode  {
+    background-color: #111;
+      color: #FFF;
+  }
+  } */
+
+.new {
+    animation: blink 0.5s infinite;
+
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+button {
+    background-color: #4CAF50;
+    /* 背景色 */
+
+
+    border: none;
+    /* 去掉边框 */
+    color: white;
+    /* 字体颜色 */
+    padding: 15px 32px;
+    /* 上下左右内边距 */
+    text-align: center;
+    /* 文字居中 */
+    text-decoration: none;
+    /* 去掉下划线 */
+    display: inline-block;
+    /* 使按钮元素以块级形式呈现 */
+    font-size: 16px;
+    /* 字体大小 */
+    border-radius: 8px;
+    /* 圆角半径 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* 阴影效果 */
+    transition-duration: 0.2s;
+    /* 按钮响应速度 */
+}
+
+/* 按钮悬停状态样式 */
+button:hover {
+    background-color: #3e8e41;
+}
+
+a:hover {
+    background-color: rgba(150, 150, 150, 0.6);
+}
+
+p {
+    white-space: pre-wrap;
+}
+
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #333;
+    /* padding: 10px; */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #ccc;
+}

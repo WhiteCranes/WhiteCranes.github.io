@@ -1,0 +1,52 @@
+#frameContainer {
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    /* right: 10%; */
+    z-index: 999;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.2);
+    width: 50%;
+    height: 90%;
+    background-color: #FFF;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+}
+#frameTitle {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    font-weight: bold;
+    background-color: #eee;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    /* cursor: move; */
+    color: #000;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version */
+}
+#frameClose {
+    float: right;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    background-color: #ddd;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: bold;
+    line-height: 20px;
+    cursor: pointer;
+}
+#frameClose:hover {
+    background-color: #ff9999;
+}
+iframe {
+    display: block;
+    width: 100%;
+    /* height: calc(100% - 30px); */
+    border: none;
+}
