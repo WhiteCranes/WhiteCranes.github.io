@@ -1,6 +1,5 @@
 var isdark = false;
 var isqipao = true;
-var server="https://www.hcu.icu/";
 if (getc("qipao") == "0") {
     isqipao = false;
 } else {
