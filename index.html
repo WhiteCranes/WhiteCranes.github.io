@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
     <script>
         newcss.href = "css/new.css?" + generateRandomString(10);
-
+var server="https://www.hcu.icu/";
         // 判断是否为 HTTP
         if (window.location.protocol !== "https:") {
             // 构造新的 HTTPS 地址
@@ -31,7 +31,7 @@
         var version = "";
         const urlParams = new URLSearchParams(window.location.search);
         // 发起GET请求
-        fetch('direct1.php?version')
+        fetch(server+'direct1.php?version')
             .then(response => response.text())
             .then(data => {
                 // 在这里处理解析后的数据
@@ -840,7 +840,7 @@ const imgElement = document.getElementById('bgimg');
             document.getElementById("his").innerHTML = "";
             console.log("请求开始");
             document.getElementById('his').innerHTML = "正在加载聊天记录";
-            fetch("direct1.php?hisum=" + userid) // 更改为你的PHP脚本的URL
+            fetch(server+"direct1.php?hisum=" + userid) // 更改为你的PHP脚本的URL
                 .then((response) => {
                     return response.arrayBuffer();
                     console.log("请求完成");
