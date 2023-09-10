@@ -1246,7 +1246,7 @@ for (var i = 0; i < parts.length; i++) {
                 if (audioElement.buffered.length > 0) {
     var loadedPercentage = (audioElement.buffered.end(0) / audioElement.duration) * 100;
 
-    document.getElementById('lyrics-2').innerHTML=loadedPercentage.toFixed(2)+%;
+    document.getElementById('lyrics-2').innerHTML=loadedPercentage.toFixed(2)+'%';
     // 如果加载到10%或更多，开始播放音频
     if (loadedPercentage >= 20) {
       audioElement.play();
