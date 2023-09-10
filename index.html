@@ -1257,11 +1257,15 @@ var timerId;
                 fetch(selectedmusic.lrc)
                     .then(response => response.text())
                     .then(data => {
+                        conso.log(data);
                         glyrics = parseLRC(data, selectedmusic.timeOffset);
                                         audioElement.src = selectedmusic.url;
                 audioElement.load();
                 clearInterval(timerId);
-                       timerId = setInterval(musicprogress, 500); // 这里的5000表示定时器将在5秒后触发
+                   // 在2秒后执行这个函数
+setTimeout(function() {
+   timerId = setInterval(musicprogress, 500); 
+}, 500);
                 
                     })
             .catch(error => {
