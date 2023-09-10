@@ -1199,24 +1199,24 @@ for (var i = 0; i < parts.length; i++) {
             var audioElement = new Audio();
             var glyrics = [];
             const music = [
-            {
-                    url: "https://www.hcu.icu/music/jb.m4a",
-                    lrc: "https://www.hcu.icu/music/jb.lrc",
+                {
+                    url: "https://whitecranes.github.io/music/jb.m4a",
+                    lrc: "https://whitecranes.github.io/music_lrc/jb.lrc",
                     timeOffset: 0,
                 },
                 {
-                    url: "https://www.hcu.icu/music/hy.m4a",
-                    lrc: "https://www.hcu.icu/music/hy.lrc",
+                    url: "https://whitecranes.github.io/music/hy.m4a",
+                    lrc: "https://whitecranes.github.io/music_lrc/hy.lrc",
                     timeOffset: 0,
                 },
                 {
-                    url: "https://www.hcu.icu/music/ltg.mp3",
-                    lrc: "https://www.hcu.icu/music/ltg.lrc",
+                    url: "https://whitecranes.github.io/music/ltg.mp3",
+                    lrc: "https://whitecranes.github.io/music_lrc/ltg.lrc",
                     timeOffset: 0,
                 },
                 {
-                    url: "https://www.hcu.icu/music/ltx.mp3",
-                    lrc: "https://www.hcu.icu/music/ltx.lrc",
+                    url: "https://whitecranes.github.io/music/ltx.mp3",
+                    lrc: "https://whitecranes.github.io/music_lrc/ltx.lrc",
                     timeOffset: 0,
                 },
                 {
@@ -1231,24 +1231,21 @@ for (var i = 0; i < parts.length; i++) {
                 },
             ];
 
-            function musicprogress(){
-               
+            function musicprogress() {
+
                 if (audioElement.buffered.length > 0) {
-    let loadedPercentage = (audioElement.buffered.end(0) / audioElement.duration) * 100;
-    console.log(loadedPercentage);
-    document.getElementById('lyrics-2').innerHTML="加载歌曲"+loadedPercentage.toFixed(2)+'%';
-    // 如果加载到10%或更多，开始播放音频
-    if (loadedPercentage >= 20) {
-      audioElement.play();
-        clearInterval(timerId);
-    }
-  }else{
-    audioElement.play();
-        clearInterval(timerId);
-  }
+                    let loadedPercentage = (audioElement.buffered.end(0) / audioElement.duration) * 100;
+                    console.log(loadedPercentage);
+                    document.getElementById('lyrics-2').innerHTML = "加载歌曲" + loadedPercentage.toFixed(2) + '%';
+                    // 如果加载到10%或更多，开始播放音频
+                    if (loadedPercentage >= 20) {
+                        audioElement.play();
+                        clearInterval(timerId);
+                    }
+                }
             }
-// 开启定时器
-var timerId; 
+            // 开启定时器
+            var timerId;
             function randomMusic() {
 
                 const randomIndex = generateRandomIndex(music.length);
@@ -1257,26 +1254,27 @@ var timerId;
                 fetch(selectedmusic.lrc)
                     .then(response => response.text())
                     .then(data => {
-                        conso.log(data);
+                        document.getElementById('lyrics-2').innerHTML = "加载歌曲0%";
+                        console.log(data);
                         glyrics = parseLRC(data, selectedmusic.timeOffset);
-                                        audioElement.src = selectedmusic.url;
-                audioElement.load();
-                clearInterval(timerId);
-                   // 在2秒后执行这个函数
-setTimeout(function() {
-   timerId = setInterval(musicprogress, 500); 
-}, 500);
-                
+                        audioElement.src = selectedmusic.url;
+                        audioElement.load();
+                        clearInterval(timerId);
+                        // 在2秒后执行这个函数
+
+                        timerId = setInterval(musicprogress, 500);
+
+
                     })
-            .catch(error => {
-     randomMusic();
-  });
+                    .catch(error => {
+                        randomMusic();
+                    });
 
 
 
 
             }
-          
+
 
 
 
@@ -1299,44 +1297,29 @@ setTimeout(function() {
                 displayText();
             }
 
+            const lyricsContainer = document.getElementById('lyrics-container');
 
-            document.addEventListener('DOMContentLoaded', function () {
-                const randomValue = Math.random();
+// 监听播放完毕事件
+audioElement.addEventListener('ended', () => {
+    randomMusic();
+});
+let currentLine = -1;
+audioElement.addEventListener('timeupdate', function () {
 
-                if (randomValue < 0.5) {
-                    light();
-                } else {
-                    
-                }
-                dark(2);
-                const lyricsContainer = document.getElementById('lyrics-container');
+    const currentTime = audioElement.currentTime;
+    // 查找当前播放时间对应的歌词行
+    for (let i = 0; i < glyrics.length - 1; i++) {
+        if (currentTime >= glyrics[i].time && currentTime < glyrics[i + 1].time) {
+            if (currentLine !== i) {
+                currentLine = i;
+                document.getElementById('lyrics-2').innerHTML = glyrics[i + 1].text;
+                displayTextWithSpeed('lyrics-container', glyrics[i].text, 50);
+            }
+            break;
+        }
+    }
+});
 
-                // 监听播放完毕事件
-                audioElement.addEventListener('ended', () => {
-                    randomMusic();
-                });
-                let currentLine = -1;
-                audioElement.addEventListener('timeupdate', function () {
-
-                    const currentTime = audioElement.currentTime;
-                    // 查找当前播放时间对应的歌词行
-                    for (let i = 0; i < glyrics.length - 1; i++) {
-                        if (currentTime >= glyrics[i].time && currentTime < glyrics[i + 1].time) {
-                            if (currentLine !== i) {
-                                currentLine = i;
-                                document.getElementById('lyrics-2').innerHTML = glyrics[i + 1].text;
-                                displayTextWithSpeed('lyrics-container', glyrics[i].text, 50);
-                            }
-                            break;
-                        }
-                    }
-                });
-
-            });
-
-        </script>
-
-        <script>
             var playButton = document.getElementById("playButton");
 
             playButton.addEventListener("click", function (e) {
@@ -1566,39 +1549,39 @@ setTimeout(function() {
 
             function addsize() {
 
-let size = getc("fontsize1");
+                let size = getc("fontsize1");
 
 
-size = parseFloat(size); // 将字符串转换为数值
+                size = parseFloat(size); // 将字符串转换为数值
 
-if (size < 4) {
-    size += 0.1;
+                if (size < 4) {
+                    size += 0.1;
                 }
 
 
 
-size = convertToSingleDecimal(size);
+                size = convertToSingleDecimal(size);
 
 
-setc("fontsize1", size);
+                setc("fontsize1", size);
 
 
-main.style.fontSize = size + "rem";
+                main.style.fontSize = size + "rem";
 
-}
+            }
             function minussize() {
                 let size = getc("fontsize1");
 
                 if (size > 0.8) {
                     size -= 0.1;
                 }
-                size=convertToSingleDecimal(size);
+                size = convertToSingleDecimal(size);
                 setc("fontsize1", size);
                 main.style.fontSize = size + "rem";
             }
             // 定义滚轮事件的回调函数
             function handleScroll(event) {
- 
+
                 if (event.deltaY > 0) {
                     addsize();
                     console.log("增加");
@@ -1669,6 +1652,19 @@ main.style.fontSize = size + "rem";
             function disableMouseSelection(event) {
                 event.preventDefault();
             }
+
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const randomValue = Math.random();
+
+                if (randomValue < 0.5) {
+                    light();
+                } else {
+
+                }
+                dark(2);
+
+            });
 
 
         </script>
