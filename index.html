@@ -1250,11 +1250,12 @@ for (var i = 0; i < parts.length; i++) {
     // 如果加载到10%或更多，开始播放音频
     if (loadedPercentage >= 20) {
       audioElement.play();
-        audioElement.removeEventListener('progress', musicprogress);
+        clearTimeout(timerId);
     }
   }
             }
-
+// 开启定时器
+var timerId; 
             function randomMusic() {
 
                 const randomIndex = generateRandomIndex(music.length);
@@ -1266,7 +1267,9 @@ for (var i = 0; i < parts.length; i++) {
                         glyrics = parseLRC(data, selectedmusic.timeOffset);
                                         audioElement.src = selectedmusic.url;
                 audioElement.load();
-                        audioElement.addEventListener('progress', musicprogress);
+                       timerId = setTimeout(function() {
+  musicprogress();
+}, 500); // 这里的5000表示定时器将在5秒后触发
                 
                     })
             .catch(error => {
