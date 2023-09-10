@@ -1242,9 +1242,18 @@ for (var i = 0; i < parts.length; i++) {
                     timeOffset: 0,
                 },
             ];
+            setTimeout(function() {
+  if (audioElement.buffered.length > 0) {
+    let loadedPercentage = (audioElement.buffered.end(0) / audioElement.duration) * 100;
+
+    // 打印加载进度
+    console.log('加载进度: ' + loadedPercentage.toFixed(2) + '%');
+
+  }
+}, 500); // 这里的5000表示定时器将在5秒后触发
             function musicprogress(){
                 if (audioElement.buffered.length > 0) {
-    var loadedPercentage = (audioElement.buffered.end(0) / audioElement.duration) * 100;
+    let loadedPercentage = (audioElement.buffered.end(0) / audioElement.duration) * 100;
 
     document.getElementById('lyrics-2').innerHTML=loadedPercentage.toFixed(2)+'%';
     // 如果加载到10%或更多，开始播放音频
