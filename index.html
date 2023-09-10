@@ -1242,6 +1242,18 @@ for (var i = 0; i < parts.length; i++) {
                     timeOffset: 0,
                 },
             ];
+            function musicprogress(){
+                if (audioElement.buffered.length > 0) {
+    var loadedPercentage = (audioElement.buffered.end(0) / audioElement.duration) * 100;
+
+    document.getElementById('lyrics-2').innerHTML=loadedPercentage.toFixed(2)+%;
+    // 如果加载到10%或更多，开始播放音频
+    if (loadedPercentage >= 20) {
+      audioElement.play();
+        audioElement.removeEventListener('progress', musicprogress);
+    }
+  }
+            }
 
             function randomMusic() {
 
@@ -1254,7 +1266,8 @@ for (var i = 0; i < parts.length; i++) {
                         glyrics = parseLRC(data, selectedmusic.timeOffset);
                                         audioElement.src = selectedmusic.url;
                 audioElement.load();
-                audioElement.play();
+                        audioElement.addEventListener('progress', musicprogress);
+                
                     })
             .catch(error => {
      randomMusic();
