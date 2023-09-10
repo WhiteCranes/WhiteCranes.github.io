@@ -1251,10 +1251,11 @@ for (var i = 0; i < parts.length; i++) {
                     .then(response => response.text())
                     .then(data => {
                         glyrics = parseLRC(data, selectedmusic.timeOffset);
-                    });
-                audioElement.src = selectedmusic.url;
+                                        audioElement.src = selectedmusic.url;
                 audioElement.load();
                 audioElement.play();
+                    });
+
 
 
 
