@@ -43,26 +43,6 @@
         var model = "";
         var cango = true;
         var version = "";
-        // 发起GET请求
-        fetch(server+'direct1.php?version')
-            .then(response => response.text())
-            .then(data => {
-                // 在这里处理解析后的数据
-                version = data;
-                console.log(version);
-            });
-
-
-        // if (urlParams.get('pwd') === null) {
-        //     let userInput = prompt('请输入密码:\n\n输入密码是为了防止滥用,\n本站是私人网站,用于自用或给朋友用,发现被传播开有人问恶劣的问题\n\n密码问作者领取');
-        //     if (userInput && getc("userid") !== userInput) {
-        //         setc("userid", userInput);
-        //     } else if (userInput) {
-        //         alert("你已经输过了密码，会保存的，我的意思是你可以不用再输入的");
-        //     }
-        // } else {
-        //     setc("userid", urlParams.get('pwd'));
-        // }
 
         if (getc("userid") == "") { setc("userid", "匿名用户" + generateRandomString(10)); }
 
