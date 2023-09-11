@@ -760,7 +760,7 @@ return false;
 }
 
 function copy() {
-MathJax.typeset();
+
     // 获取所有具有 'clickable-div' 类的 div 元素
     const clickableDivs = document.querySelectorAll('pre > code');
 
@@ -930,10 +930,7 @@ function dragMoveX(container) {
 
   function mark(c){
 c=c.replace(/```vue/g, "```html");
-c=c.replace(/\\\[/g, "$$");
-      c=c.replace(/\\\]/g, "$$");
-      c=c.replace(/\\\(/g, "$");
-       c=c.replace(/\\\)/g, "$");
+
     return marked.parse(c);
     return converter.makeHtml(c);
   }
