@@ -620,10 +620,12 @@ function sendz(a, div, url) {
         div.innerHTML = c;
 
         // 获取最后一个子DOM元素
-        var lastChildDOM = div.lastElementChild;
-
+        let lastChildDOM = div.lastElementChild;
+        while (lastChildDOM.lastElementChild) {
+            lastChildDOM = lastChildDOM.lastElementChild;
+}
         // 创建一个新的span元素
-        var spanElement = document.createElement("span");
+        let spanElement = document.createElement("span");
         spanElement.className = "qblinking";
         spanElement.innerHTML = "⬤";
 
