@@ -1513,7 +1513,12 @@ audioElement.addEventListener('timeupdate', function () {
         <script>
 
             document.addEventListener('wheel', function (event) {
-                cango = (main.scrollHeight - main.offsetHeight - main.scrollTop < 5);
+                            if (event.deltaY > 0) {
+                   cango = (main.scrollHeight - main.offsetHeight - main.scrollTop < 5);
+                } else {
+                   cango = false;
+                }
+                
             });
             // 创建一个变量来保存Alt键的状态
             var altKeyPressed = false;
