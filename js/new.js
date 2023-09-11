@@ -288,7 +288,7 @@ function my1(v = "") {
                 } else {
                     flag = 0;
                     let replacedString = item;
-                    console.log(replacedString);
+                    
 
                     const str = replacedString;
 
@@ -940,6 +940,7 @@ function dragMoveX(container) {
   }
 
   function mark(c){
+      console.log(c);
         let text=c;
         if (text.includes('\\[') && text.includes('\\]')) {
             text = text.replace(/\\\[/g, '\\\\\[');
@@ -950,6 +951,7 @@ function dragMoveX(container) {
             text = text.replace(/\\\)/g, '\\\\\)');
         }
       text=text.replace(/```vue/g, "```html");
-    return marked.parse(c);
+      console.log(text);
+    return marked.parse(text);
   }
 
