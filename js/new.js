@@ -586,15 +586,15 @@ function gettip() {
         });
 
 
-        fetch(server+"direct1.php?notice")
+        fetch("notice/notice.json")
         .then((response) => response.json())
         .then((data) => {
-            document.getElementById("tip3").innerHTML = "重要通知:" + data.m;
-            if (data.v != getc("vvv") && getc("vvv") != "") {
+            document.getElementById("tip3").innerHTML = "重要通知:" + data.tip2;
+            if (data.tip2_id != getc("vvv") && getc("vvv") != "") {
 
-                alert("重要通知:\n" + data.m);
+                alert("重要通知:\n" + data.tip2);
             }
-            setc("vvv", data.v);
+            setc("vvv", data.tip2_id);
         });
 
 
