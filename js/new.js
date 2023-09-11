@@ -760,7 +760,7 @@ return false;
 }
 
 function copy() {
-
+MathJax.typeset();
     // 获取所有具有 'clickable-div' 类的 div 元素
     const clickableDivs = document.querySelectorAll('pre > code');
 
@@ -928,7 +928,20 @@ function dragMoveX(container) {
     return element.scrollWidth > element.clientWidth;
   }
 
+ function mathrender(text){
+    if(/\\\[.*?\\\]/.test(text)) {
+        text = text.replace(/\\\[/g, '\\\\[');
+        text = text.replace(/\\\]/g, '\\\\]');
+    }
+    if(/\\\(.*?\\\)/.test(text)) {
+        text = text.replace(/\\\(/g, '\\\\(');
+        text = text.replace(/\\\)/g, '\\\\)');
+    }
+    return text;
+}
   function mark(c){
-    return marked.parse(c);
+
+    return marked.parse(mathrender(c));
     return converter.makeHtml(c);
   }
+
