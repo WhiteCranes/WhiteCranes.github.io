@@ -3,6 +3,12 @@
 
 <head>
     <meta charset="UTF-8" />
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        MathJax = {
+            // 仅仅为标志符，表示在这个符号中间的内容为公式内容，官方文档多了['(',')']
+            tex: {inlineMath: [['$', '$'],['\\(', '\\)']]}
+        };
+    </script>
  <script>
 
             const urlParams = new URLSearchParams(window.location.search);
