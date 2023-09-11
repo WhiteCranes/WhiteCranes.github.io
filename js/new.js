@@ -934,7 +934,7 @@ c=c.replace(/\\\[/g, "$$");
       c=c.replace(/\\\]/g, "$$");
       c=c.replace(/\\\(/g, "$");
        c=c.replace(/\\\)/g, "$");
-    return marked.parse(mathrender(c));
+    return marked.parse(c);
     return converter.makeHtml(c);
   }
 
