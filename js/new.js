@@ -287,7 +287,7 @@ function my1(v = "") {
                     flag = 1;
                 } else {
                     flag = 0;
-                    let replacedString = item.replace(/```vue/g, "```html");
+                    let replacedString = item;
                     console.log(replacedString);
 
                     const str = replacedString;
@@ -711,7 +711,7 @@ return false;
                 var text = jsonObj.message;
                 if (text != "") {
                     buff = buff + text;
-                    let replacedString = buff.replace(/```vue/g, "```html");
+                    let replacedString = buff;
                     update(mark(replacedString));
 
                 }
@@ -737,7 +737,7 @@ return false;
 
 
                 buff += event.data;
-                let replacedString = buff.replace(/```vue/g, "```html");
+                let replacedString = buff;
                 replacedString = mark(replacedString);
 
                 update(replacedString);
@@ -928,19 +928,12 @@ function dragMoveX(container) {
     return element.scrollWidth > element.clientWidth;
   }
 
- function mathrender(text){
-    if(/\\\[.*?\\\]/.test(text)) {
-        text = text.replace(/\\\[/g, '\\\\[');
-        text = text.replace(/\\\]/g, '\\\\]');
-    }
-    if(/\\\(.*?\\\)/.test(text)) {
-        text = text.replace(/\\\(/g, '\\\\(');
-        text = text.replace(/\\\)/g, '\\\\)');
-    }
-    return text;
-}
   function mark(c){
-
+c=c.replace(/```vue/g, "```html");
+c=c.replace(/\\\[/g, "$$");
+      c=c.replace(/\\\]/g, "$$");
+      c=c.replace(/\\\(/g, "$");
+       c=c.replace(/\\\)/g, "$");
     return marked.parse(mathrender(c));
     return converter.makeHtml(c);
   }
