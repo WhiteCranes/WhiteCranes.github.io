@@ -618,19 +618,44 @@ function sendz(a, div, url) {
     var nofinish = true;
     function update(c) {
         div.innerHTML = c;
+        function hasDirectText(element) {
 
+let children = element.childNodes;
+
+for (let i = 0; i < children.length; i++) {
+
+  if (children[i].nodeType === Node.TEXT_NODE) {
+
+    // 增加正则表达式,过滤空白字符
+    if(/^\s*$/.test(children[i].nodeValue)) { 
+      continue;
+    }
+
+    return true;
+
+  }
+
+}
+
+return false;
+
+}
         // 获取最后一个子DOM元素
-        let lastChildDOM = div.lastElementChild;
-        while (lastChildDOM.lastElementChild) {
+        let lastChildDOM = div;
+        
+         while (!hasDirectText(lastChildDOM)) {
             lastChildDOM = lastChildDOM.lastElementChild;
 }
+
+
+        
         // 创建一个新的span元素
         let spanElement = document.createElement("span");
         spanElement.className = "qblinking";
         spanElement.innerHTML = "⬤";
 
         // 将span元素添加到最后一个子DOM元素的innerText之后
-        lastChildDOM.innerHTML += spanElement.outerHTML;
+        lastChildDOM.appendChild(spanElement);
         // first, find all the div.code blocks
         if (cango) {
 
