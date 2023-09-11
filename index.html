@@ -13,9 +13,9 @@
     var wsserver= "wss://www.hcu.icu:8080/"
       var myVariable = "1号服务器“一生一世”";
         if (urlParams.get('server')=="2"){
-            var server="https://hcu.icu/";
-            var wsserver= "wss://hcu.icu:8080/";
-            var myVariable = "2号服务器“两厢情愿”";
+            server="https://hcu.icu/";
+            wsserver= "wss://hcu.icu:8080/";
+            myVariable = "2号服务器“两厢情愿”";
         }
      
  </script>
@@ -48,7 +48,13 @@
 
         if (getc("fontsize1") == "") { setc("fontsize1", "1.5"); }
 
-
+        fetch(server+'direct1.php?version')
+            .then(response => response.text())
+            .then(data => {
+                // 在这里处理解析后的数据
+                version = data;
+                console.log(version);
+            });
 
         marked.use({
             gfm: true,
