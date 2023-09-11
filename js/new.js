@@ -589,7 +589,7 @@ function gettip() {
         fetch("notice/notice.json")
         .then((response) => response.json())
         .then((data) => {
-             version = data.version;
+            
             document.getElementById("tip3").innerHTML = "重要通知:" + data.tip2;
             if (data.tip2_id != getc("vvv") && getc("vvv") != "") {
 
