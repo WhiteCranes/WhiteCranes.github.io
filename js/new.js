@@ -760,7 +760,18 @@ return false;
 }
 
 function copy() {
-
+        renderMathInElement(document.body, {
+            // customised options
+            // • auto-render specific keys, e.g.:
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+            ],
+            // • rendering keys, e.g.:
+            throwOnError : false
+        });
     // 获取所有具有 'clickable-div' 类的 div 元素
     const clickableDivs = document.querySelectorAll('pre > code');
 
@@ -929,9 +940,16 @@ function dragMoveX(container) {
   }
 
   function mark(c){
-c=c.replace(/```vue/g, "```html");
-
+        let text=c;
+        if (text.includes('\\[') && text.includes('\\]')) {
+            text = text.replace(/\\\[/g, '\\\\\[');
+            text = text.replace(/\\\]/g, '\\\\\]');
+        }
+        if (text.includes('\\(') && text.includes('\\)')) {
+            text = text.replace(/\\\(/g, '\\\\\(');
+            text = text.replace(/\\\)/g, '\\\\\)');
+        }
+      text=text.replace(/```vue/g, "```html");
     return marked.parse(c);
-    return converter.makeHtml(c);
   }
 
