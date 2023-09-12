@@ -393,7 +393,14 @@ function showContextMenu(event, param1) {
             newContextMenu.remove();
         }); newContextMenu.appendChild(copyOptionx);
 
-
+        const tiwen = document.createElement("button");
+        tiwen.innerText = "重新提问";
+        tiwen.classList.add("context-menu-option");
+        tiwen.addEventListener('click', (event) => {
+            var selectedText = window.getSelection().toString();
+mess.value=selectedText;
+            newContextMenu.remove();
+        }); newContextMenu.appendChild(tiwen);
     }
 
 
