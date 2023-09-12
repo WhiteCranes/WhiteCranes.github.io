@@ -228,7 +228,7 @@ function hello() {
 }
 function reset() {
     mess.style.height = "auto"; // 先重置高度
-    let max = document.getElementById("main").offsetHeight / 2;
+    let max = document.getElementById("main_container").offsetHeight / 2;
     if (mess.scrollHeight > max) {
         mess.style.height = max + "px"; // 设置为内容的高度
     } else {
@@ -240,6 +240,10 @@ function setconfig(a, b, c = "") {
     cid = a;
     model = b;
     pid = c;
+
+        document.getElementById("mainTab").setAttribute('cid', cid);
+
+
     // console.log(`id:${cid},model:${model}`);
 }
 
@@ -252,10 +256,7 @@ function generateRandomString(length) {
     return result;
 }
 function my1(v = "") {
-    if (v == "") {
-        if (cid == "") { return; }
-        v = cid;
-    }
+
     main.innerHTML = "正在加载聊天记录";
     fetch(server+"direct1.php?his=" + v) // 更改为你的PHP脚本的URL
         .then((response) => response.arrayBuffer())
@@ -668,7 +669,7 @@ return false;
         if (cango) {
 
             requestAnimationFrame(function () {
-                main.scrollTop = main.scrollHeight;
+                document.getElementById('main_container').scrollTop = document.getElementById('main_container').scrollHeight;
             });
         }
         document.querySelectorAll('#prep pre code').forEach(el => {
@@ -697,12 +698,12 @@ return false;
         socket.close();
         if (empty) {
             addmessage("left", "发生错误请重试", false, false);
-            main.scrollTop = main.scrollHeight;
+            document.getElementById('main_container').scrollTop = document.getElementById('main_container').scrollHeight;
             fetch(server+'direct1.php?reset');
         }
         if (nofinish) {
             addmessage("left", "作答被魔法打断", false, false);
-            main.scrollTop = main.scrollHeight;
+            document.getElementById('main_container').scrollTop = document.getElementById('main_container').scrollHeight;
             fetch(server+'direct1.php?reset');
         }
         console.log("%c 作答完成", " text-shadow: 0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);font-size:5em")
@@ -749,7 +750,7 @@ return false;
             if (jsonObj.error == "1") {
               
                 div.innerHTML = jsonObj.message;
-                main.scrollTop = main.scrollHeight;
+                document.getElementById('main_container').scrollTop = document.getElementById('main_container').scrollHeight;
             }
         } catch (error) {
             if (event.data != "") {
