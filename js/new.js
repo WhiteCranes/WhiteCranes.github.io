@@ -529,6 +529,18 @@ function addx(user, t, type = true, type1 = true, prep = false, pid = "", ojb) {
         } else {
             contentdiv.innerHTML = t;
             contentdiv.classList.add("markdown-body");
+                    renderMathInElement(contentdiv, {
+            // customised options
+            // • auto-render specific keys, e.g.:
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+            ],
+            // • rendering keys, e.g.:
+            throwOnError : false
+        });
         }
         if (prep) {
             contentdiv.id = "prep";
@@ -563,6 +575,19 @@ function addx(user, t, type = true, type1 = true, prep = false, pid = "", ojb) {
             newMessage.textContent = t;
         } else {
             newMessage.innerHTML = t;
+                        contentdiv.classList.add("markdown-body");
+                    renderMathInElement(newMessage, {
+            // customised options
+            // • auto-render specific keys, e.g.:
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true},
+            ],
+            // • rendering keys, e.g.:
+            throwOnError : false
+        });
             newMessage.classList.add("markdown-body");
         }
         if (prep) {
@@ -780,18 +805,7 @@ return false;
 }
 
 function copy() {
-        renderMathInElement(document.body, {
-            // customised options
-            // • auto-render specific keys, e.g.:
-            delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false},
-                {left: '\\(', right: '\\)', display: false},
-                {left: '\\[', right: '\\]', display: true},
-            ],
-            // • rendering keys, e.g.:
-            throwOnError : false
-        });
+
     // 获取所有具有 'clickable-div' 类的 div 元素
     const clickableDivs = document.querySelectorAll('pre > code');
 
