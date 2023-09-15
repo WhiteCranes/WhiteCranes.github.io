@@ -575,7 +575,7 @@ function addx(user, t, type = true, type1 = true, prep = false, pid = "", ojb) {
             newMessage.textContent = t;
         } else {
             newMessage.innerHTML = t;
-                        contentdiv.classList.add("markdown-body");
+                        newMessage.classList.add("markdown-body");
                     renderMathInElement(newMessage, {
             // customised options
             // • auto-render specific keys, e.g.:
