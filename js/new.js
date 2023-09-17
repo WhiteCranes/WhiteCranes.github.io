@@ -1,22 +1,6 @@
 var isdark = false;
-var isqipao = true;
-if (getc("qipao") == "0") {
-    isqipao = false;
-} else {
-    setc("qipao", "1");
-    isqipao = true;
-}
-function swichqipao() {
-    if (getc("qipao") == "0") {
-        setc("qipao", "1");
-        isqipao = true;
-    } else {
-        setc("qipao", "0");
-        isqipao = false;
-    }
 
 
-}
 function convertToSingleDecimal(inputString) {
     // 将字符串转换为浮点数
     const floatValue = parseFloat(inputString);
