@@ -532,7 +532,8 @@ function addx(user, t, type = true, type1 = true, prep = false, pid = "", ojb) {
 
         newMessage.appendChild(contentdiv);
         contentdiv.addEventListener("contextmenu", function (event) {
-            showContextMenu(event, pid != "");
+            if (!shouji){showContextMenu(event, pid != "");}
+            
         });
         contentdiv.setAttribute("pid", pid);
         contentdiv.addEventListener("contextmenu", showContextMenu);
