@@ -8,6 +8,7 @@
     <script src="katex/contrib/auto-render.js"></script>
     <script>
 var isqipao = true;
+        var shouji = false;
         const urlParams = new URLSearchParams(window.location.search);
         var server = "https://www.hcu.icu/";
         var wsserver = "wss://www.hcu.icu:8080/"
@@ -1161,6 +1162,7 @@ let onetitle;
             document.body.style.setProperty("--padding", "0");
             main_c.style.fontSize = "1.5rem";
             isqipao=false;
+            shouji = true;
         }
 
 
