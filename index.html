@@ -8,7 +8,6 @@
     <script src="katex/contrib/auto-render.js"></script>
     <script>
 var isqipao = true;
-        var shouji = false;
         const urlParams = new URLSearchParams(window.location.search);
         var server = "https://www.hcu.icu/";
         var wsserver = "wss://www.hcu.icu:8080/"
@@ -22,7 +21,7 @@ var isqipao = true;
     </script>
 
 
-    <script src="js/new.js?6"></script>
+    <script src="js/new.js?1"></script>
 
 
     <link id="newcss" rel="stylesheet" href="">
@@ -1153,22 +1152,13 @@ let onetitle;
     }
 
 
-    // 选取class为'sidebar'的元素
-    function mobile() {
-        main_c.style.fontSize = getc("fontsize1") + "rem";
-        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        if (/android/i.test(userAgent) || /iPad|iPhone|iPod/.test(userAgent)) {
-            document.body.style.zoom = "65%";
+if(isMobile()){
+                document.body.style.zoom = "65%";
             document.body.style.setProperty("--padding", "0");
             main_c.style.fontSize = "1.5rem";
             isqipao=false;
-            shouji = true;
-        }
-
-
-    }
-
-    mobile();
+}
+  
     const unnecessaryElements = document.querySelectorAll('.unnecessary');
 
     // 遍历元素列表，将每个元素的style.display属性设置为"none"
