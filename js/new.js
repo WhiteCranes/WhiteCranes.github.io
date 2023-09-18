@@ -591,7 +591,7 @@ function addx(user, t, type = true, type1 = true, prep = false, pid = "", ojb) {
         }
         newMessage.setAttribute("pid", pid);
         newMessage.addEventListener("contextmenu", function (event) {
-            showContextMenu(event, pid != "");
+            if (!isMobile()){showContextMenu(event, pid != "");}
         });
         ojb.appendChild(newMessage);
     }
