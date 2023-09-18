@@ -1,5 +1,16 @@
 var isdark = false;
+function isMobile() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  const mobileKeywords = ["android", "iphone", "ipad", "ipod", "windows phone"];
 
+  for (const keyword of mobileKeywords) {
+    if (userAgent.includes(keyword)) {
+      return true;
+    }
+  }
+
+  return false;
+}
 
 function convertToSingleDecimal(inputString) {
     // 将字符串转换为浮点数
@@ -532,7 +543,7 @@ function addx(user, t, type = true, type1 = true, prep = false, pid = "", ojb) {
 
         newMessage.appendChild(contentdiv);
         contentdiv.addEventListener("contextmenu", function (event) {
-            if (!shouji){showContextMenu(event, pid != "");}
+            if (!isMobile()){showContextMenu(event, pid != "");}
             
         });
         contentdiv.setAttribute("pid", pid);
@@ -707,12 +718,12 @@ return false;
         mess.readOnly = false;
         socket.close();
         if (empty) {
-            addmessage("left", "发生错误请重试", false, false);
+            addmessage("left", "网络连接失败，这大概率是你的问题，可以试着换个网或者切换服务器", false, false);
             document.getElementById('main_container').scrollTop = document.getElementById('main_container').scrollHeight;
             fetch(server+'direct1.php?reset');
         }
-        if (nofinish) {
-            addmessage("left", "作答被魔法打断", false, false);
+        if (nofinish && !empty) {
+            addmessage("left", "作答被未知原因打断，重试一下", false, false);
             document.getElementById('main_container').scrollTop = document.getElementById('main_container').scrollHeight;
             fetch(server+'direct1.php?reset');
         }
