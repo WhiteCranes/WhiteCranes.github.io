@@ -649,7 +649,9 @@ function sendz(a, div, url) {
     function update(c) {
         div.innerHTML = c;
         function hasDirectText(element) {
-
+if (element.childNodes){
+  return true;
+}
 let children = element.childNodes;
 
 for (let i = 0; i < children.length; i++) {
