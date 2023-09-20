@@ -650,7 +650,7 @@ function sendz(a, div, url) {
         div.innerHTML = c;
         function hasDirectText(element) {
 if (element.childNodes){
-  return true;
+  return false;
 }
 let children = element.childNodes;
 
