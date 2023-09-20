@@ -683,7 +683,12 @@ return false;
         let lastChildDOM = div;
         
          while (!hasDirectText(lastChildDOM)) {
-            lastChildDOM = lastChildDOM.lastElementChild;
+           if (lastChildDOM.lastElementChild !== null) {
+lastChildDOM = lastChildDOM.lastElementChild;
+}else{
+             break;
+}
+            
 }
 
 
