@@ -1101,7 +1101,6 @@ let onetitle;
                         a.appendChild(contentDiv);
                         a.addEventListener('mousedown', () => {
                             a.style.transform = "scale(0.95)";
-                            console.log("1");
                         });
 
 
@@ -1125,7 +1124,7 @@ let onetitle;
 
 
                     });
-                    console.log(count);
+
                     if (count == 0) {
                         document.getElementById('his').innerHTML = "你还没有聊天记录";
                     }
@@ -1358,7 +1357,7 @@ if(isMobile()){
 
             if (audioElement.buffered.length > 0) {
                 let loadedPercentage = (audioElement.buffered.end(0) / audioElement.duration) * 100;
-                console.log(loadedPercentage);
+
                 document.getElementById('lyrics-2').innerHTML = "加载歌曲" + loadedPercentage.toFixed(2) + '%';
                 // 如果加载到10%或更多，开始播放音频
                 if (loadedPercentage >= 20) {
@@ -1380,7 +1379,7 @@ if(isMobile()){
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('lyrics-2').innerHTML = "加载歌曲0%";
-                    console.log(data);
+          
                     glyrics = parseLRC(data, selectedmusic.timeOffset);
                     audioElement.src = selectedmusic.url;
                     audioElement.load();
@@ -1716,7 +1715,7 @@ if(isMobile()){
 
             if (event.deltaY > 0) {
                 addsize();
-                console.log("增加");
+    
             } else {
                 minussize();
             }
