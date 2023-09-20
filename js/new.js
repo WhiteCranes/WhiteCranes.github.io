@@ -970,7 +970,6 @@ function dragMoveX(container) {
   }
 
   function mark(c){
-      console.log(c);
         let text=c;
         if (text.includes('\\[') && text.includes('\\]')) {
             text = text.replace(/\\\[/g, '\\\\\[');
@@ -981,7 +980,7 @@ function dragMoveX(container) {
             text = text.replace(/\\\)/g, '\\\\\)');
         }
       text=text.replace(/```vue/g, "```html");
-      console.log(text);
+    
     return marked.parse(text);
   }
 
