@@ -873,25 +873,36 @@ function getIP() {
         .then(data => data);
 }
 document.addEventListener('DOMContentLoaded', function () {
-    fetch(server+"direct1.php?ip")
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.local != "no") {
-                document.getElementById("weather").innerText = data.local + "天气";
-                var obj = JSON.parse(data.raw);
-                fetch(server+"direct1.php?weather=" + obj.data.lng + "," + obj.data.lat)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        const table = document.getElementById('weatherTable');
-                        for (let daily of data.daily) {
-                            let row = table.insertRow(-1);
-                            row.insertCell(-1).innerText = daily.fxDate;
-                            row.insertCell(-1).innerText = `${daily.tempMax}℃~${daily.tempMin}℃`;
-                            row.insertCell(-1).innerText = `${daily.textDay}转${daily.textNight}`;
-                        }
-                    });
-            }
-        });
+fetch(server + "direct1.php?ip")
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.local != "no") {
+      document.getElementById("weather").innerText = data.local + "天气";
+      let obj = JSON.parse(data.raw);
+      let adcode = obj.data.adcode;
+      return fetch(server + "direct1.php?geo=" + adcode);
+    } else {
+      throw new Error("No local data");
+    }
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    let geoid = data.location[0].id;
+    return fetch(server + "direct1.php?weather=" + geoid);
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    const table = document.getElementById('weatherTable');
+    for (let daily of data.daily) {
+      let row = table.insertRow(-1);
+      row.insertCell(-1).innerText = daily.fxDate;
+      row.insertCell(-1).innerText = `${daily.tempMax}℃~${daily.tempMin}℃`;
+      row.insertCell(-1).innerText = `${daily.textDay}转${daily.textNight}`;
+    }
+  })
+  .catch((error) => {
+    console.error("发生错误:", error);
+  });
 });
 
 function copyH5Content(content) {
