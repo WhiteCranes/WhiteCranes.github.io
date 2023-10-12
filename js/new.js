@@ -275,7 +275,7 @@ function my1(v = "") {
             main.innerHTML = "";
             arr.forEach(function (item) {
                 if (item.includes("jj")) {
-                    return;
+                    item="该消息包含违规内容";
                 }
 
                 if (flag == 0) {
