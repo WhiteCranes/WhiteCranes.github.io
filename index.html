@@ -7,6 +7,18 @@
     <script src="katex/katex.min.js"></script>
     <script src="katex/contrib/auto-render.js"></script>
     <script>
+                WIDGET = {
+            "CONFIG": {
+                "layout": "1",
+                "width": "350",
+                "height": "150",
+                "language": "zh",
+                "background": "1",
+                "dataColor": "FFFFFF",
+                "city": "",
+                "key": "1ae5fee1e1d84f37a143a1170f99fd12"
+            }
+        }
 var isqipao = true;
         const urlParams = new URLSearchParams(window.location.search);
         var server = "https://www.hcu.icu/";
@@ -1225,7 +1237,7 @@ if(isMobile()){
 
 
 <div id="draggableDiv">
-
+<div id="he-plugin-standard"></div>
     <table id="weatherTable">
         <caption id="weather"></caption>
         <tr>
@@ -1262,7 +1274,16 @@ if(isMobile()){
             <br>隐藏
         </a>
         <script>
-
+        if (isMobile()) {
+            // 如果 isMobile() 返回 true，只显示移动设备内容
+                        document.getElementById("he-plugin-standard").style.display = "none";
+            document.getElementById("weatherTable").style.display = "block";
+  
+        } else {
+            // 如果 isMobile() 返回 false，只显示非移动设备内容
+          document.getElementById("he-plugin-standard").style.display = "block";
+            document.getElementById("weatherTable").style.display = "none";
+        }
             function hide() {
                 document.getElementById("draggableDiv").style.display = "none";
                 // 设置定时器，延迟两分钟执行代码块
