@@ -877,6 +877,19 @@ function getIP() {
         .then(response => response.text())
         .then(data => data);
 }
+function removeElementByClassName(className) {
+    var elements = document.getElementsByClassName(className);
+    if (elements.length > 0) {
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].parentNode.removeChild(elements[i]);
+        }
+    }
+}
+
+function checkForElement() {
+    var targetClassName = "wv-lt-col-5";
+    removeElementByClassName(targetClassName);
+}
 document.addEventListener('DOMContentLoaded', function () {
 fetch(server + "direct1.php?ip")
   .then((response) => response.json())
@@ -893,6 +906,16 @@ fetch(server + "direct1.php?ip")
   .then((response) => response.json())
   .then((data) => {
     let geoid = data.location[0].id;
+    WIDGET.CONFIG.city="CN"+geoid;
+      // 创建一个 script 元素
+      var scriptElement = document.createElement('script');
+
+      // 设置 script 元素的 src 属性
+      scriptElement.src = "https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0";
+
+      // 将 script 元素添加到文档的头部或其他合适的位置
+      document.head.appendChild(scriptElement);
+     setInterval(checkForElement, 1000);
     return fetch(server + "direct1.php?weather=" + geoid);
   })
   .then((response) => response.json())
