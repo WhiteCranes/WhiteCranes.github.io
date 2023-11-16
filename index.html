@@ -953,6 +953,7 @@ function switchTab(tabid){
         setconfig("","" ,"");
         main.innerHTML = ``;
         document.getElementById("footer").style.display = "flex";
+        addmessage("left", `<p>2023-11-16 公告</p><p>新增百度大模型，虽然笨但是也能用，不支持对话，只能一问一答</p>`, false, true, false);
         addmessage("left", `<p>2023-11-13 公告</p><p>gpt近期进行GPTs灰度等重大升级，本页面不会一直能用也不会一直不能用。不能用的歇一个小时后来试试，一天总有那么几个时候能用！</p>`, false, true, false);
 
         addmessage("left", `<img src="pic/avatar.gif" alt="用户头像">`, false, true, false);
