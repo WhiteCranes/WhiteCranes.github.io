@@ -840,8 +840,8 @@ function switchTab(tabid){
                           placeholder="输入内容...Shift+回车换行，回车键发送，Shift+删除键清空内容" id="mess"
                           onkeydown="preventNewLine(event)"></textarea>
             <div id="submit">
-                <button id="send1" class="submit-btn" style="display: none;">GPT3</button>
-                <!-- <button id="send2" class="submit-btn" style="background-color: #000;">GPT4</button> -->
+                <button id="send1" class="submit-btn">GPT</button>
+                <button id="send2" class="submit-btn" style="background-color: #000;">文心一言</button>
             </div>
             <label style="display: flex;flex-direction: column;">
                 <div><input type="checkbox" id="myCheckbox" checked>中文</div>
@@ -854,12 +854,30 @@ function switchTab(tabid){
                 var mess = document.getElementById("mess");
 
                 document.getElementById("send1").addEventListener("click", function () {
-
-                    sendw();
+                    let data = {
+                        bot: "gpt",
+                        add: "",
+                        cid: cid,
+                        pid: pid,
+                        message: mess.value,
+                        userid: getc("userid"),
+                        version: version,
+                    };
+                    sendw(data);
 
                 });
+                document.getElementById("send2").addEventListener("click", function () {
+                    let data = {
+                        bot: "bd",
+                        add: "",
+                        message: mess.value,
+                        userid: getc("userid"),
+                        version: version,
+                    };
+                    sendw(data);
 
-                function sendw(url = wsserver) {
+                });
+                function sendw(url = wsserver,data) {
                     if (!mess.value || submit_btn.style.display == "none") {
                         return;
                     }
@@ -881,14 +899,7 @@ function switchTab(tabid){
 
                     document.getElementById('main_container').scrollTop = document.getElementById('main_container').scrollHeight;
                     cango = true;
-                    let data = {
-                        add: "",
-                        cid: cid,
-                        pid: pid,
-                        message: mess.value,
-                        userid: getc("userid"),
-                        version: version,
-                    };
+
 
 
                     if (document.getElementById("myCheckbox").checked) {
