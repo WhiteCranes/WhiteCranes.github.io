@@ -877,7 +877,7 @@ function switchTab(tabid){
                     sendw(data);
 
                 });
-                function sendw(url = wsserver,data) {
+                function sendw(data,url = wsserver) {
                     if (!mess.value || submit_btn.style.display == "none") {
                         return;
                     }
