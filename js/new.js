@@ -965,10 +965,11 @@ function copyDOM(div, clear = true) {
 
 // 解析LRC歌词文本
 function parseLRC(data, timeOffset) {
+    console.log("解析歌词",data)
     const lines = data.split('\n');
     const lyrics = [];
     for (const line of lines) {
-        const match = line.match(/\[(\d{2}):(\d{2}\.\d{2})\](.+)/);
+        const match = line.match(/\[(\d{2}):(\d{2}(?:\.\d{1,3})?)\](.+)/);
         if (match) {
             const time = (parseInt(match[1]) * 60 + parseFloat(match[2])) + timeOffset;
             const text = match[3];
