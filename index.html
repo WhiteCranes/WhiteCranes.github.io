@@ -1384,8 +1384,13 @@ if(isMobile()){
         // 开启定时器
         var timerId;
 
-        function randomMusic() {
+                function randomMusic() {
 
+
+            randomMusic_2();
+
+        }
+        function randomMusic_1() {
             const randomIndex = generateRandomIndex(music.length);
             const selectedmusic = music[randomIndex];
             // 获取音频元素
@@ -1393,7 +1398,7 @@ if(isMobile()){
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('lyrics-2').innerHTML = "加载歌曲0%";
-          
+
                     glyrics = parseLRC(data, selectedmusic.timeOffset);
                     audioElement.src = selectedmusic.url;
                     audioElement.load();
@@ -1407,10 +1412,37 @@ if(isMobile()){
                 .catch(error => {
                     randomMusic();
                 });
-
-
         }
+        function randomMusic_2() {
 
+
+            fetch(server + 'direct1.php?music')
+                .then(response => response.json())
+                .then(data => {
+
+
+                        fetch(server + "direct1.php?lyric=" + data.data[0].id)
+                            .then(response => response.json())
+                            .then(data1 => {
+                                glyrics = parseLRC(data1.lrc.lyric, 0);
+                                audioElement.src = data.data[0].url;
+                                audioElement.load();
+                                audioElement.play();
+
+                                // 处理歌词，你可以在这里进行相应的操作
+                            })
+                            .catch(error => {
+                                console.error('请求歌词错误:', error);
+                                randomMusic_2(); // 重新请求音乐
+                            });
+
+
+                })
+                .catch(error => {
+                    console.error('请求音乐错误:', error);
+                    randomMusic_2(); // 重新请求音乐
+                });
+        }
 
         function displayTextWithSpeed(dom, content, speed) {
             const textContainer = document.getElementById(dom);
