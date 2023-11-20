@@ -494,8 +494,9 @@ var isqipao = true;
 
 
         }
-        modal.style.display = "none";
         ref1();
+        modal.style.display = "none";
+        modal.remove();
     });
     var modal = document.getElementById("myModal");
     var prevButton = document.getElementById("prevSlide");
