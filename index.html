@@ -980,6 +980,7 @@ function switchTab(tabid){
         fetch(server + "direct1.php?hisum=" + userid) // 更改为你的PHP脚本的URL
   .then(response => {
       const contentLength = response.headers.get('Dx');
+      console.log(contentLength);
       let downloadedBytes = 0;
       let responseData = new Uint8Array(); // 存储响应数据
       const reader = response.body.getReader();
