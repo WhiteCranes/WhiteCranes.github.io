@@ -978,17 +978,41 @@ function switchTab(tabid){
 
         document.getElementById('his').innerHTML = "正在加载聊天记录";
         fetch(server + "direct1.php?hisum=" + userid) // 更改为你的PHP脚本的URL
-            .then((response) => {
-                return response.arrayBuffer();
+  .then(response => {
+      const contentLength = response.headers.get('Dx');
+      let downloadedBytes = 0;
+      let responseData = new Uint8Array(); // 存储响应数据
+      const reader = response.body.getReader();
 
-            })
+      function read() {
+        return reader.read().then(({ done, value }) => {
+          if (done) {
+            
+            return responseData.buffer;
+          }
+          downloadedBytes += value.length;
+          const progress = (downloadedBytes / contentLength) * 100;
+    
+            document.getElementById('his').innerHTML = `加载中：${progress.toFixed(2)}%`;
+
+        // 拼接 value 到 responseData
+        const newResponseData = new Uint8Array(responseData.length + value.length);
+        newResponseData.set(responseData, 0);
+        newResponseData.set(value, responseData.length);
+        responseData = newResponseData;
+          // 继续读取下一部分数据
+          return read();
+        });
+      }
+
+      return read();
+    })
+
             .then((arrayBuffer) => {
                 // 使用pako解压缩
 
 
-                let decompressed = pako.inflate(new Uint8Array(arrayBuffer), {
-                    to: "string",
-                });
+                let decompressed = pako.inflate(arrayBuffer, { to: 'string' });
 
                 jsonObjhistory = JSON.parse(decompressed);
 
