@@ -892,16 +892,11 @@ function checkForElement() {
 }
 document.addEventListener('DOMContentLoaded', function () {
 fetch(server + "direct1.php?ip")
-  .then((response) => response.json())
+  .then((response) => response.text())
   .then((data) => {
-    if (data.local != "no") {
-      document.getElementById("weather").innerText = data.local + "天气";
-      let obj = JSON.parse(data.raw);
-      let adcode = obj.data.adcode;
-      return fetch(server + "direct1.php?geo=" + adcode);
-    } else {
-      throw new Error("No local data");
-    }
+
+      return fetch(server + "direct1.php?geo=" + data);
+
   })
   .then((response) => response.json())
   .then((data) => {
