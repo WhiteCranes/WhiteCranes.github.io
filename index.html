@@ -1321,16 +1321,7 @@ if(isMobile()){
             <br>隐藏
         </a>
         <script>
-        if (isMobile()) {
-            // 如果 isMobile() 返回 true，只显示移动设备内容
-                        document.getElementById("he-plugin-standard").style.display = "none";
-            document.getElementById("weatherTable").style.display = "block";
-  
-        } else {
-            // 如果 isMobile() 返回 false，只显示非移动设备内容
-          document.getElementById("he-plugin-standard").style.display = "block";
-            document.getElementById("weatherTable").style.display = "none";
-        }
+document.getElementById("weatherTable").style.display = "none";
             function hide() {
                 document.getElementById("draggableDiv").style.display = "none";
                 // 设置定时器，延迟两分钟执行代码块
