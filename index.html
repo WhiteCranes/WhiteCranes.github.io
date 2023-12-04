@@ -42,8 +42,9 @@ function checkPageCrash() {
   } else {
     // 页面正常，继续监测
     lastFrameTime = currentFrameTime;
-    requestAnimationFrame(checkPageCrash);
+    
   }
+    requestAnimationFrame(checkPageCrash);
 }
 
 // 初始调用
