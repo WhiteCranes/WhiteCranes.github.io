@@ -790,11 +790,9 @@ lastChildDOM = lastChildDOM.lastElementChild;
         } catch (error) {
             if (event.data != "") {
 
-if (event.data.length > 100){
-    buff = event.data;
-}else{
+
     buff += event.data;
-}
+
               
               
                 let replacedString = buff;
