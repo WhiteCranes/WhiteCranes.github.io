@@ -38,7 +38,7 @@ function checkPageCrash() {
 
   if (frameDuration > 200 && frameDuration < 500) {
     // 页面崩溃，执行刷新操作
-    location.reload(true);
+    alert("检测到网站可能发生了错误，要是不对劲那就刷新");
   } else {
     // 页面正常，继续监测
     lastFrameTime = currentFrameTime;
