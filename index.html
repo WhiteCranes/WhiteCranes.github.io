@@ -38,7 +38,7 @@ function checkPageCrash() {
 
   if (frameDuration > 200 && frameDuration < 500) {
     // 页面崩溃，执行刷新操作
-    alert("检测到网站可能发生了错误，要是不对劲那就刷新");
+    showPopup("检测到网站可能发生了错误，要是不对劲那就刷新");
   } else {
     // 页面正常，继续监测
     lastFrameTime = currentFrameTime;
@@ -49,8 +49,37 @@ function checkPageCrash() {
 
 // 初始调用
 checkPageCrash();
-    </script>
+            function showPopup(text) {
+        // 创建弹出提示
+        var popup = document.createElement('div');
+        popup.id = 'popup';
+        popup.textContent = text;
+        document.body.appendChild(popup);
 
+
+
+        // 3秒后销毁弹出提示
+        setTimeout(function () {
+
+            document.body.removeChild(popup);
+        }, 3000);
+    }
+    </script>
+    <style>
+        /* 样式可以根据需要进行调整 */
+        #popup {
+            user-select: none;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px;
+            background-color: #ff5656;
+            color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
 
     <script src="js/new.js?202"></script>
 
