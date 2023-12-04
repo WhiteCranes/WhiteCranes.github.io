@@ -36,7 +36,7 @@ function checkPageCrash() {
   const currentFrameTime = performance.now();
   const frameDuration = currentFrameTime - lastFrameTime;
 
-  if (frameDuration > 500) {
+  if (frameDuration > 200 && frameDuration < 500) {
     // 页面崩溃，执行刷新操作
     location.reload(true);
   } else {
