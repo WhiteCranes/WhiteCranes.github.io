@@ -30,10 +30,28 @@ var isqipao = true;
             myVariable = "2号服务器“两厢情愿”";
         }
 
+        let lastFrameTime = performance.now();
+
+function checkPageCrash() {
+  const currentFrameTime = performance.now();
+  const frameDuration = currentFrameTime - lastFrameTime;
+
+  if (frameDuration > 500) {
+    // 页面崩溃，执行刷新操作
+    location.reload(true);
+  } else {
+    // 页面正常，继续监测
+    lastFrameTime = currentFrameTime;
+    requestAnimationFrame(checkPageCrash);
+  }
+}
+
+// 初始调用
+checkPageCrash();
     </script>
 
 
-    <script src="js/new.js?20s2"></script>
+    <script src="js/new.js?202"></script>
 
 
     <link id="newcss" rel="stylesheet" href="css/new.css">
