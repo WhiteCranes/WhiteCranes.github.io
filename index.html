@@ -49,7 +49,12 @@ function checkPageCrash() {
 
 // 初始调用
 checkPageCrash();
+        var popup_exist=false;
             function showPopup(text) {
+                if (popup_exist){
+                    return;
+                }
+                popup_exist=true;
         // 创建弹出提示
         var popup = document.createElement('div');
         popup.id = 'popup';
@@ -60,7 +65,7 @@ checkPageCrash();
 
         // 3秒后销毁弹出提示
         setTimeout(function () {
-
+popup_exist=false;
             document.body.removeChild(popup);
         }, 3000);
     }
