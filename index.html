@@ -1183,7 +1183,7 @@ let onetitle;
                         }
                         a.onclick = function () {
                             switchTabById(item.id,item.title.replace(/<!@@##\$\$\^\^!>/g, ''));
-
+headerElement.style.transform = '';
                         };
                         // Create the 'content' div and add it to the 'a' element
 
@@ -1765,7 +1765,7 @@ audioElement.addEventListener('error', function(e) {
     </script>
     <script>
 
-        document.querySelector('.content').addEventListener('wheel', function (event) {
+        document.querySelector('.main_container').addEventListener('wheel', function (event) {
             let headerElement = document.querySelector('.header')
             if (event.deltaY > 0) {
                 cango = (document.getElementById('main').scrollHeight - document.getElementById('main').offsetHeight - document.getElementById('main').scrollTop < 30);
