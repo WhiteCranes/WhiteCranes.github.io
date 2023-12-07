@@ -63,7 +63,7 @@ function dark(c=-1) {
         {
             elem:`<canvas id="rain" style="height: 100%; width: 100%; position: absolute;"></canvas>
             `,
-            bgColor: "#061928",
+            bgColor: "rgb(59, 59, 59)",
             code:`
             var ww=window.innerWidth || document.documentElement.clientWidth;
             var hh=window.screen.availHeight * window.devicePixelRatio;
