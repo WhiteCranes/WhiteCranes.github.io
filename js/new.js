@@ -704,7 +704,7 @@ lastChildDOM = lastChildDOM.lastElementChild;
         if (cango) {
 
             requestAnimationFrame(function () {
-                document.getElementById('main_container').scrollTop = document.getElementById('main_container').scrollHeight;
+                document.getElementById('main').scrollTop = document.getElementById('main').scrollHeight;
             });
         }
         document.querySelectorAll('#prep pre code').forEach(el => {
