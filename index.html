@@ -7,6 +7,9 @@
     <script src="katex/katex.min.js"></script>
     <script src="katex/contrib/auto-render.js"></script>
     <script>
+        function hasScrollbar(element) {
+    return element.scrollHeight > element.clientHeight;
+}
                 WIDGET = {
             "CONFIG": {
                 "layout": "1",
@@ -1762,7 +1765,10 @@ audioElement.addEventListener('error', function(e) {
             let headerElement = document.querySelector('.header')
             if (event.deltaY > 0) {
                 cango = (document.getElementById('main').scrollHeight - document.getElementById('main').offsetHeight - document.getElementById('main').scrollTop < 15);
-                headerElement.style.transform = 'translate(0, -100%)';
+                
+                if (hasScrollbar(document.getElementById('main'))){
+                    headerElement.style.transform = 'translate(0, -100%)';
+                }
             } else {
                 cango = false;
                 headerElement.style.transform = '';
