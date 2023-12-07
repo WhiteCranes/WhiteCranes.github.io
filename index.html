@@ -821,7 +821,7 @@ function createTab(cid="",name="新聊天"){
     const newMain = document.createElement('div');
     newMain.setAttribute('cid', cid);
     newMain.setAttribute('tabid', tabid);
-
+    newMain.className = 'tab_child';
     const main_container = document.getElementById('main_container');
 
     main_container.appendChild(newMain);
