@@ -957,7 +957,7 @@ function switchTab(tabid){
                     addmessage("left", `<span class="qblinking">⬤</span>`, false, isqipao, true);
                     var prep = document.getElementById("prep");
 
-                    document.getElementById('main_container').scrollTop = document.getElementById('main_container').scrollHeight;
+                    document.getElementById('main').scrollTop = document.getElementById('main').scrollHeight;
                     cango = true;
 
 
@@ -1760,7 +1760,7 @@ audioElement.addEventListener('error', function(e) {
 
         document.addEventListener('wheel', function (event) {
             if (event.deltaY > 0) {
-                cango = (document.getElementById('main_container').scrollHeight - document.getElementById('main_container').offsetHeight - document.getElementById('main_container').scrollTop < 15);
+                cango = (document.getElementById('main').scrollHeight - document.getElementById('main').offsetHeight - document.getElementById('main').scrollTop < 15);
             } else {
                 cango = false;
             }
