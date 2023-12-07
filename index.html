@@ -1759,10 +1759,13 @@ audioElement.addEventListener('error', function(e) {
     <script>
 
         document.addEventListener('wheel', function (event) {
+            let headerElement = document.querySelector('.header')
             if (event.deltaY > 0) {
                 cango = (document.getElementById('main').scrollHeight - document.getElementById('main').offsetHeight - document.getElementById('main').scrollTop < 15);
+                headerElement.style.transform = 'translate(0, -100%)';
             } else {
                 cango = false;
+                headerElement.style.transform = '';
             }
 
         });
