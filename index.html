@@ -53,26 +53,22 @@ function checkPageCrash() {
 
 // 初始调用
 checkPageCrash();
-        var popup_exist=false;
-            function showPopup(text) {
-                if (popup_exist){
-                    return;
-                }
-                popup_exist=true;
-        // 创建弹出提示
-        var popup = document.createElement('div');
-        popup.id = 'popup';
-        popup.textContent = text;
-        document.body.appendChild(popup);
+let popupTimeout; // 用于存储 setTimeout 的标识符
 
-
-
-        // 3秒后销毁弹出提示
-        setTimeout(function () {
-popup_exist=false;
-            document.body.removeChild(popup);
-        }, 3000);
+function showPopup(text) {
+    // 清除之前的定时器
+    if (popupTimeout) {
+        clearTimeout(popupTimeout);
     }
+
+    document.getElementById('popup').innerHTML = text;
+    document.getElementById('popup').style.display = 'block';
+
+    // 3秒后销毁弹出提示
+    popupTimeout = setTimeout(function () {
+        document.getElementById('popup').style.display = 'none';
+    }, 3000);
+}
     </script>
     <style>
         /* 样式可以根据需要进行调整 */
@@ -463,7 +459,7 @@ popup_exist=false;
 </head>
 
 <body>
-
+<div class="popup" id="popup"></div>
 <!-- 弹窗内容 -->
 <div class="modal" id="myModal">
     <div class="modal-content" id="modal-content1">
@@ -1779,6 +1775,58 @@ audioElement.addEventListener('error', function(e) {
             }
 
         });
+                document.addEventListener("selectionchange", () => {
+
+
+
+
+            var selectedText = getSelectedText();
+
+            // 处理选中的文字，获取英文单词和中文汉字个数
+            var wordCount = getWordCount(selectedText);
+            var chineseCharacterCount = getChineseCharacterCount(selectedText);
+            // 统计中文标点符号的个数
+            var chinesePunctuationCount = countChinesePunctuation(selectedText);
+            // console.log('选中的文字:', selectedText);
+            // // 处理统计结果，可以在这里执行你想要的操作
+            // console.log('中文标点符号个数:', chinesePunctuationCount);
+            // // 输出结果到控制台
+
+            // console.log('英文单词个数:', wordCount);
+            // console.log('中文汉字个数:', chineseCharacterCount);
+            // console.log();
+                    showPopup(`中文标点符号个数: ${chinesePunctuationCount}<br>英文单词个数: ${wordCount}<br>中文汉字个数: ${chineseCharacterCount}`);
+        });
+
+        // 获取选中的文字的函数
+        function getSelectedText() {
+            if (window.getSelection) {
+                return window.getSelection().toString();
+            } else if (document.selection && document.selection.type != 'Control') {
+                return document.selection.createRange().text;
+            }
+            return '';
+        }
+
+        // 获取英文单词个数的函数
+        function getWordCount(text) {
+            var words = text.match(/\b\w+\b/g);
+            return words ? words.length : 0;
+        }
+
+        // 获取中文汉字个数的函数
+        function getChineseCharacterCount(text) {
+            var chineseCharacters = text.match(/[\u4e00-\u9fa5]/g);
+            return chineseCharacters ? chineseCharacters.length : 0;
+        }
+        function countChinesePunctuation(text) {
+            // 中文标点符号的正则表达式
+            var chinesePunctuationRegex = /[\u3000-\u303F\uFF00-\uFFEF]/g;
+
+            // 使用正则表达式匹配中文标点符号，并返回匹配的个数
+            var matches = text.match(chinesePunctuationRegex);
+            return matches ? matches.length : 0;
+        }
         // 创建一个变量来保存Alt键的状态
         var altKeyPressed = false;
 
