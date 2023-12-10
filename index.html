@@ -84,6 +84,7 @@ function showPopup(text) {
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             z-index: 10000;
+            display:none;
         }
     </style>
 
@@ -1796,7 +1797,7 @@ audioElement.addEventListener('error', function(e) {
             // console.log('中文汉字个数:', chineseCharacterCount);
             // console.log();
                     
-                    if (chinesePunctuationCount !== 0 && wordCount !== 0 && chineseCharacterCount !== 0) {
+                    if (chinesePunctuationCount !== 0 || wordCount !== 0 || chineseCharacterCount !== 0) {
   showPopup(`中文标点符号个数: ${chinesePunctuationCount}<br>英文单词个数: ${wordCount}<br>中文汉字个数: ${chineseCharacterCount}`);
 }
         });
