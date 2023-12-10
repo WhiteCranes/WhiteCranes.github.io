@@ -1795,7 +1795,10 @@ audioElement.addEventListener('error', function(e) {
             // console.log('英文单词个数:', wordCount);
             // console.log('中文汉字个数:', chineseCharacterCount);
             // console.log();
-                    showPopup(`中文标点符号个数: ${chinesePunctuationCount}<br>英文单词个数: ${wordCount}<br>中文汉字个数: ${chineseCharacterCount}`);
+                    
+                    if (chinesePunctuationCount !== 0 && wordCount !== 0 && chineseCharacterCount !== 0) {
+  showPopup(`中文标点符号个数: ${chinesePunctuationCount}<br>英文单词个数: ${wordCount}<br>中文汉字个数: ${chineseCharacterCount}`);
+}
         });
 
         // 获取选中的文字的函数
