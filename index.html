@@ -132,7 +132,7 @@ function showPopup(text) {
                 console.log(version);
             });
         var ipv4 = "";
-        fetch('http://hcu.icu/getip.php')
+        fetch('https://hcu.icu/getip.php')
             .then(response => response.text())
             .then(data => {
                 // 在这里处理解析后的数据
@@ -140,7 +140,7 @@ function showPopup(text) {
                 console.log(ipv4);
             });
                 var ipv6 = "";
-        fetch('http://6.hcu.icu/getip.php')
+        fetch('https://6.hcu.icu/getip.php')
             .then(response => response.text())
             .then(data => {
                 // 在这里处理解析后的数据
