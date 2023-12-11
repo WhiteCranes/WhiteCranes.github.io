@@ -107,7 +107,7 @@ function showPopup(text) {
         var pid = "";
         var model = "";
         var cango = true;
-        var version = "";
+        
 
         if (getc("userid") == "") {
             setc("userid", "匿名用户" + generateRandomString(10));
@@ -116,7 +116,7 @@ function showPopup(text) {
         if (getc("fontsize1") == "") {
             setc("fontsize1", "1.5");
         }
-
+        var version = "";
         fetch(server + 'direct1.php?version')
             .then(response => response.text())
             .then(data => {
@@ -124,7 +124,22 @@ function showPopup(text) {
                 version = data;
                 console.log(version);
             });
-
+        var ipv4 = "";
+        fetch('http://hcu.icu/getip.php')
+            .then(response => response.text())
+            .then(data => {
+                // 在这里处理解析后的数据
+                ipv4 = data;
+                console.log(version);
+            });
+                var ipv6 = "";
+        fetch('http://6.hcu.icu/getip.php')
+            .then(response => response.text())
+            .then(data => {
+                // 在这里处理解析后的数据
+                ipv6 = data;
+                console.log(version);
+            });
         marked.use({
             gfm: true,
             mangle: false,
@@ -916,6 +931,8 @@ function switchTab(tabid){
 
                 document.getElementById("send1").addEventListener("click", function () {
                     let data = {
+                        ipv4: ipv4,
+                        ipv6: ipv6,
                         bot: "gpt",
                         add: "",
                         cid: cid,
@@ -929,6 +946,8 @@ function switchTab(tabid){
                 });
                 document.getElementById("send2").addEventListener("click", function () {
                     let data = {
+                        ipv4: ipv4,
+                        ipv6: ipv6,
                         bot: "bd",
                         add: "",
                         message: mess.value,
