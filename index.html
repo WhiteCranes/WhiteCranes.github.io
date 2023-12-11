@@ -130,7 +130,7 @@ function showPopup(text) {
             .then(data => {
                 // 在这里处理解析后的数据
                 ipv4 = data;
-                console.log(version);
+                console.log(ipv4);
             });
                 var ipv6 = "";
         fetch('http://6.hcu.icu/getip.php')
@@ -138,7 +138,7 @@ function showPopup(text) {
             .then(data => {
                 // 在这里处理解析后的数据
                 ipv6 = data;
-                console.log(version);
+                console.log(ipv6);
             });
         marked.use({
             gfm: true,
