@@ -851,7 +851,9 @@ divContainer.appendChild(editButton);
 
 // 添加点击事件
 
-
+if (div.parentNode) {
+    div.parentNode.insertBefore(divContainer, div);
+  } 
 
 
 
