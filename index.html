@@ -1530,7 +1530,9 @@ audioElement.addEventListener('error', function(e) {
                 });
         }
         function randomMusic_2() {
-
+  if (window.location.protocol === 'https:') {
+      return;
+  }
 
             fetch(server + 'direct1.php?music')
                 .then(response => response.json())
