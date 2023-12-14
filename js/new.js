@@ -825,22 +825,46 @@ function copy() {
     // 遍历每个可点击的 div 元素，检查是否已经有双击事件监听器，没有则添加
     clickableDivs.forEach(div => {
         if (!div.hasAttribute('data-doubleclick-added')) {
+
+
+
+var copyButton = document.createElement("button");
+copyButton.className = "copy_code";
+copyButton.textContent = "复制代码";
+copyButton.addEventListener("click", function() {
+copyDOM(div);
+  const audio = new Audio('ok.mp3');
+  audio.play();
+  // 这里可以添加处理复制按钮点击事件的代码
+});
+var editButton = document.createElement("button");
+editButton.className = "edit_code";
+editButton.textContent = "编辑代码";
+editButton.addEventListener("click", function() {
+  window.open("https://vscode.dev/", '_blank');
+  // 这里可以添加处理编辑按钮点击事件的代码
+});
+var divContainer = document.createElement("div");
+divContainer.className = "code_copy";
+divContainer.appendChild(copyButton);
+divContainer.appendChild(editButton);
+
+var parentDOM = document.getElementById("父dom");
+parentDOM.appendChild(divContainer);
+
+// 添加点击事件
+
+
+
+
+
+
+
+
+
+          
             //dragMoveX(div);
-            div.addEventListener("dblclick", (event) => {
 
-                //const code = codeBlocksArray[i].innerText;
-                var savedSelection = window.getSelection().getRangeAt(0).cloneRange();
-
-
-                copyDOM(div);
-                const audio = new Audio('ok.mp3');
-                if (savedSelection) {
-                    var selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(savedSelection);
-                }
-                audio.play();
-            });
             div.setAttribute('data-doubleclick-added', 'true');
         }
     });
