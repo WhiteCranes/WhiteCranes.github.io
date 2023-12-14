@@ -849,9 +849,6 @@ divContainer.className = "code_copy";
 divContainer.appendChild(copyButton);
 divContainer.appendChild(editButton);
 
-var parentDOM = document.getElementById("父dom");
-parentDOM.appendChild(divContainer);
-
 // 添加点击事件
 
 
