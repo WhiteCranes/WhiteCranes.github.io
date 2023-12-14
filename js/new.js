@@ -830,7 +830,30 @@ function copy() {
 
 var copyButton = document.createElement("button");
 copyButton.className = "copy_code";
-copyButton.textContent = "复制代码";
+
+          
+
+
+// 获取元素的所有类名
+var classNames = div.className.split(" ");
+
+// 查找第一个以"language-"开头的类名
+var languageClass = classNames.find(function(className) {
+    return className.startsWith("language-");
+});
+
+// 输出或使用找到的类名
+if (languageClass) {
+  copyButton.textContent = "复制"+languageClass.replace(/^language-/g, '')+"代码";
+}
+
+
+
+
+
+
+
+          
 copyButton.addEventListener("click", function() {
 copyDOM(div);
   const audio = new Audio('ok.mp3');
