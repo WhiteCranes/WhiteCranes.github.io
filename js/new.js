@@ -643,8 +643,9 @@ function sendx(a) {
 
 function sendz(a, div, url) {
     let buff = "";
+  let socket;
     if (window.location.protocol === 'http:') {
-      let socket = new WebSocket(url);
+      socket = new WebSocket(url);
     }else{
       addmessage("left", `<p>当前为https，无法正常使用，请修改浏览器地址栏为http，把s去掉。</p>`, false, true, false);
     }
