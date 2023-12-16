@@ -731,9 +731,12 @@ lastChildDOM = lastChildDOM.lastElementChild;
         });
 
     }
+  var close_exec=false;
     function close() {
         // console.log(`发生错误`);
-
+if (close_exec){
+  return;
+}close_exec=true;
         submit_btn.style.display = "block";
         mess.readOnly = false;
         socket.close();
@@ -767,9 +770,9 @@ lastChildDOM = lastChildDOM.lastElementChild;
             if (jsonObj.error === undefined) {
                 throw new Error("jsonObj.error is undefined");
             }
-
+var text = jsonObj.message;
             if (jsonObj.error == "0") {
-                var text = jsonObj.message;
+                
                 if (text != "") {
                     buff = buff + text;
                     let replacedString = buff;
@@ -781,16 +784,17 @@ lastChildDOM = lastChildDOM.lastElementChild;
                     setconfig(jsonObj.conversation_id, jsonObj.model);
                     copy();
                     nofinish = false;
-
-
                 }
             }
             if (jsonObj.error == "5") {
-                console.warn(jsonObj.message);
+                console.warn(text);
+              if(text=="作答完成"){
+                close();
+              }
             }
             if (jsonObj.error == "1") {
               
-                div.innerHTML = jsonObj.message;
+                div.innerHTML = text;
                 document.getElementById('main_container').scrollTop = document.getElementById('main_container').scrollHeight;
             }
         } catch (error) {
