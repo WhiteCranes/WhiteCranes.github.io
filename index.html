@@ -130,22 +130,41 @@ function showPopup(text) {
             setc("fontsize1", "1.5");
         }
         var version = "";
-        fetch(server + 'direct1.php?version')
-            .then(response => response.text())
-            .then(data => {
-                // 在这里处理解析后的数据
-                version = data;
-                console.log(version);
-            });
         var ipv4 = "";
-        fetch('https://hcu.icu/getip.php')
-            .then(response => response.text())
-            .then(data => {
-                // 在这里处理解析后的数据
-                ipv4 = data;
-                console.log(ipv4);
-            });
-                var ipv6 = "";
+        var ipv6 = "";
+        function get_base_info(){
+// 处理版本信息请求
+fetch(server + 'direct1.php?version')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('网络请求错误: ' + response.status);
+        }
+        return response.text();
+    })
+    .then(data => {
+        version = data;
+    })
+    .catch(error => {
+        get_base_info();
+    });
+
+// 处理获取IP地址请求
+fetch('https://hcu.icu/getip.php')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('网络请求错误: ' + response.status);
+        }
+        return response.text();
+    })
+    .then(data => {
+        ipv4 = data;
+    })
+    .catch(error => {
+       get_base_info();
+    });
+        }
+
+                get_base_info();
         fetch('https://6.hcu.icu/getip.php')
             .then(response => response.text())
             .then(data => {
@@ -1213,7 +1232,7 @@ let onetitle;
                         }
                         a.onclick = function () {
                             switchTabById(item.id,item.title.replace(/<!@@##\$\$\^\^!>/g, ''));
-headerElement.style.transform = '';
+
                         };
                         // Create the 'content' div and add it to the 'a' element
 
