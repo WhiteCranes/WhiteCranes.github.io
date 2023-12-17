@@ -160,7 +160,7 @@ function dark(c=-1) {
                 x: x*Math.random(),
                 y: y*Math.random(),
                 r: Math.random()*5,
-                color:\`rgba(255,255,255,${Math.random()})\`
+                color:'rgba(255, 255, 255, ' + Math.random() + ')'
             })
         }
         /* 创建image元素 */
@@ -194,13 +194,13 @@ function dark(c=-1) {
                    arr[i]={ x: x*Math.random(),
                 y: -10,
                 r: Math.random()*5,
-                color:\`rgba(255,255,255,${Math.random()})\`}
+                color:'rgba(255, 255, 255, ' + Math.random() + ')'}
                  }
             }
    requestAnimationFrame(draw);
    ctx.clearRect(0,0,x,y);
         }
-
+ requestAnimationFrame(draw);
       
             `,
         },
