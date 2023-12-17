@@ -135,6 +135,7 @@ function showPopup(text) {
         var version = "";
         var ipv4 = "";
         var ipv6 = "";
+        var music_list;
         function get_base_info(){
 // 处理版本信息请求
 fetch(server + 'direct1.php?version')
@@ -165,6 +166,17 @@ fetch('https://hcu.icu/getip.php')
     .catch(error => {
        get_base_info();
     });
+
+
+        fetch(server + 'direct1.php?music')
+                .then(response => response.json())
+                .then(data => music_list=data.data)
+    .catch(error => {
+       get_base_info();
+    });
+
+
+            
         }
 
                 get_base_info();
@@ -1553,21 +1565,20 @@ audioElement.addEventListener('error', function(e) {
                     randomMusic();
                 });
         }
+        
         function randomMusic_2() {
   if (window.location.protocol === 'https:') {
       return;
   }
-
-            fetch(server + 'direct1.php?music')
-                .then(response => response.json())
-                .then(data => {
+            const randomIndex = generateRandomIndex(music_list.length);
+            const selectedmusic = music_list[randomIndex];
 
 
-                        fetch(server + "direct1.php?lyric=" + data.data[0].id)
+                        fetch(server + "direct1.php?lyric=" + selectedmusic.id)
                             .then(response => response.json())
                             .then(data1 => {
                                 glyrics = parseLRC(data1.lrc.lyric, 0);
-                                audioElement.src = data.data[0].url;
+                                audioElement.src = selectedmusic.url;
                                 audioElement.load();
                                 audioElement.play();
 
@@ -1579,11 +1590,6 @@ audioElement.addEventListener('error', function(e) {
                             });
 
 
-                })
-                .catch(error => {
-                    console.error('请求音乐错误:', error);
-                    randomMusic_2(); // 重新请求音乐
-                });
         }
 
         function displayTextWithSpeed(dom, content, speed) {
