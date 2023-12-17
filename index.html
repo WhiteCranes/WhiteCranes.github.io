@@ -992,7 +992,14 @@ function switchTab(tabid){
 
                 });
                 function sendw(data,url = wsserver) {
-                    if (!mess.value || submit_btn.style.display == "none") {
+                               
+       
+                    if (!data.message || submit_btn.style.display == "none") {
+                      
+                        return;
+                    }
+                    if((getWordCount(data.message)+getChineseCharacterCount(data.message))>2000){
+                        addmessage("left", `<p>字数过多</p>`, false, true, false);
                         return;
                     }
                     submit_btn.style.display = "none";
@@ -1068,10 +1075,7 @@ function switchTab(tabid){
         main.innerHTML = ``;
         document.getElementById("footer").style.display = "flex";
 
-        addmessage("left", `<p>公告</p><p>每次唱這足10拍E6的高音，總是跪足捶地，彷彿如此，才能跟自己確認，抵達了至高的山巔。</p>
-<p>當然，每次的嘶吼，每一場，每一聲，都來自於我依賴了24年的嗓子。</p>
-<p>除了真唱，</p>
-<p>否則沒有其他感動你的方式。</p>`, false, true, false);
+
         addmessage("left", `<p>提示</p><p>本页面不会一直能用也不会一直不能用。不能用的歇一个小时后来试试，一天总有那么几个时候能用！</p>`, false, true, false);
 
         // addmessage("left", `<img src="pic/avatar.gif" alt="用户头像">`, false, true, false);
