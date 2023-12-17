@@ -733,6 +733,7 @@
 
 .markdown-body .highlight pre,
 .markdown-body pre {
+    position: relative;
     overflow: auto;
     font-size: 85%;
     line-height: 1.45;
