@@ -132,49 +132,40 @@ function showPopup(text) {
         if (getc("fontsize1") == "") {
             setc("fontsize1", "1.5");
         }
-        var version = "";
-        var ipv4 = "";
+
         var ipv6 = "";
-        var music_list;
 
 
-async function get_base_info() {
-    // 处理版本信息请求
-    try {
-        const versionResponse = await fetch(server + 'direct1.php?version');
-        if (!versionResponse.ok) {
-            throw new Error('网络请求错误: ' + versionResponse.status);
+
+
+        // 定义一个辅助函数，用于发送fetch请求并返回Promise
+
+
+        // 初始化变量
+        var version, ipv4, music_list;
+        var succeed_get_base_info=false;
+        function get_base_info() {
+            // 使用Promise链执行fetch请求
+            fetch(server + 'direct1.php?version')
+                .then(response => response.text())
+                .then(data => {
+                    version = data;
+                    return fetch('https://hcu.icu/getip.php')
+                })
+                .then(response => response.text())
+                .then(data => {
+                    ipv4 = data;
+                    return fetch(server + 'direct1.php?music')
+                })
+                .then(response => response.json())
+                .then(data => {
+                    music_list = data.data;
+                    succeed_get_base_info=true;
+                    console.log("基础信息获取完毕");
+                })
+                .catch(() => get_base_info());
         }
-        version = await versionResponse.text();
-    } catch (error) {
-        await get_base_info();
-    }
-
-    // 处理获取IP地址请求
-    try {
-        const ipResponse = await fetch('https://hcu.icu/getip.php');
-        if (!ipResponse.ok) {
-            throw new Error('网络请求错误: ' + ipResponse.status);
-        }
-        ipv4 = await ipResponse.text();
-    } catch (error) {
-        await get_base_info();
-    }
-
-    try {
-        const musicResponse = await fetch(server + 'direct1.php?music');
-        const musicData = await musicResponse.json();
-        music_list = musicData.data;
-    } catch (error) {
-        await get_base_info();
-    }
-}
-
-async function init() {
-    await get_base_info();
-}
-
-init();
+        get_base_info();
         fetch('https://6.hcu.icu/getip.php')
             .then(response => response.text())
             .then(data => {
@@ -629,10 +620,11 @@ init();
     }
 
     closeButton.onclick = function () {
-
+if (succeed_get_base_info){
         document.getElementById("modal-content1").style.display = "none";
         document.getElementById("modal-content2").style.display = "flex";
-        playAudio();
+    randomMusic();
+}
     }
 
 
@@ -1468,6 +1460,18 @@ document.getElementById("weatherTable").style.display = "none";
 
     <script>
         var audioElement = new Audio();
+        var playButton = document.getElementById("playButton");
+        audioElement.addEventListener('play', function() {
+            playButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+  <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+</svg><br>音乐`;
+        });
+        audioElement.addEventListener('pause', function() {
+
+            playButton.innerHTML = `                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+                    <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+                  </svg><br>音乐`;
+        });
         var glyrics = [];
         const music = [
             {
@@ -1629,38 +1633,18 @@ audioElement.addEventListener('error', function(e) {
             }
         });
 
-        var playButton = document.getElementById("playButton");
+
 
         playButton.addEventListener("click", function (e) {
             e.preventDefault();
             if (audioElement.paused) {
                 audioElement.play();
-                playButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
-  <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
-</svg><br>音乐`;
             } else {
                 audioElement.pause();
-                playButton.innerHTML = `                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
-                    <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
-                  </svg><br>音乐`;
             }
         });
 
 
-        function playAudio() {
-
-
-            randomMusic();
-            playButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
-  <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
-</svg><br>音乐`;
-            // document.removeEventListener("click", playAudio);
-            // document.removeEventListener("keydown", playAudio);
-
-        }
-
-        // document.addEventListener("click", playAudio);
-        // document.addEventListener("keydown", playAudio);
     </script>
 
 
