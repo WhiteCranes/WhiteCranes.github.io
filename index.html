@@ -592,13 +592,16 @@ function showPopup(text) {
         let userInput = document.getElementById("pwd").value;
         if (userInput && getc("userid") !== userInput) {
             setc("userid", userInput);
-            // 刷新页面
-
-
         }
-        ref1();
-        modal.style.display = "none";
-        modal.remove();
+        if (succeed_get_base_info){
+            ref1();
+            modal.remove();
+            randomMusic();
+        }else{
+            showPopup("请稍等，页面正在初始化");
+        }
+
+
     });
     var modal = document.getElementById("myModal");
     var prevButton = document.getElementById("prevSlide");
@@ -620,11 +623,9 @@ function showPopup(text) {
     }
 
     closeButton.onclick = function () {
-if (succeed_get_base_info){
         document.getElementById("modal-content1").style.display = "none";
         document.getElementById("modal-content2").style.display = "flex";
-    randomMusic();
-}
+
     }
 
 
