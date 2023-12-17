@@ -61,8 +61,7 @@ function dark(c=-1) {
             code:``,
         },
         {
-            elem:`<canvas id="rain" style="height: 100%; width: 100%; position: absolute;"></canvas>
-            `,
+            elem:`<canvas id="rain" style="height: 100%; width: 100%; position: absolute;"></canvas>`,
             bgColor: "rgb(59, 59, 59)",
             code:`
             var ww=window.innerWidth || document.documentElement.clientWidth;
@@ -133,6 +132,76 @@ function dark(c=-1) {
            }
            
            requestAnimationFrame(draw);
+            `,
+        },
+        {
+            elem:`<canvas id="snow" style="height: 100%; width: 100%; position: absolute;"></canvas>`,
+            bgColor: "rgb(13, 17, 23)",
+            code:`
+              var canvas = document.getElementById("snow");
+        var ctx = canvas.getContext("2d");
+        /* 定义x为窗口宽度，y为窗口高度 */
+        var x = 0 ,y=0;      
+        /* 定义数组，是为了存储每一片雪与雪花的信息 */
+        var arr=[];
+        /* 假设有600片雪 */
+        var num=1000;
+          
+    /* 绑定窗口大小发生改变事件，让canvas随时铺满浏览器可视区 */
+      window.onresize=resizeCanvas;
+        function resizeCanvas(){
+            x=canvas.width=window.innerWidth;
+            y=canvas.height=window.innerHeight;
+        }
+        resizeCanvas(); 
+
+        for(let i=0;i<num;i++){
+            arr.push({
+                x: x*Math.random(),
+                y: y*Math.random(),
+                r: Math.random()*5,
+                color:\`rgba(255,255,255,${Math.random()})\`
+            })
+        }
+        /* 创建image元素 */
+
+        function draw(){
+            /* 遍历数组 */
+            for(let i=0;i<num;i++){
+                var yuan = arr[i];     
+                /* 创建路径 */          
+                 ctx.beginPath();
+                 /* 给雪设置颜色 */
+                 ctx.fillStyle = yuan.color;
+                 /* 绘制雪 */
+                ctx.arc(yuan.x,yuan.y,yuan.r,0,2*3.14,false);        
+                /* 填充路径 */
+                ctx.fill();
+            }
+            updated(); 
+        }
+          
+        function updated() {
+            for(let i=0;i<num;i++){
+                var yuan = arr[i];
+                /* x轴位置+0.1，变化小点 */
+                yuan.x = yuan.x + 0.1; 
+                /* y轴位置+自身半径一半，这样越大的学走越快 */
+                yuan.y = yuan.y+yuan.r/2;
+                /* 如果学已经走出窗口 */
+                if(yuan.y>y){
+                    /* 重新给雪数组赋值 */
+                   arr[i]={ x: x*Math.random(),
+                y: -10,
+                r: Math.random()*5,
+                color:\`rgba(255,255,255,${Math.random()})\`}
+                 }
+            }
+   requestAnimationFrame(draw);
+   ctx.clearRect(0,0,x,y);
+        }
+
+      
             `,
         },
     ];
