@@ -138,7 +138,7 @@ function dark(c=-1) {
             elem:`<canvas id="snow" style="height: 100%; width: 100%; position: absolute;"></canvas>`,
             bgColor: "rgb(13, 17, 23)",
             code:`
-              var canvas = document.getElementById("snow");
+       var canvas = document.getElementById("snow");
         var ctx = canvas.getContext("2d");
         /* 定义x为窗口宽度，y为窗口高度 */
         var x = 0 ,y=0;      
@@ -178,7 +178,6 @@ function dark(c=-1) {
                 /* 填充路径 */
                 ctx.fill();
             }
-            updated(); 
         }
           
         function updated() {
@@ -192,15 +191,23 @@ function dark(c=-1) {
                 if(yuan.y>y){
                     /* 重新给雪数组赋值 */
                    arr[i]={ x: x*Math.random(),
-                y: -10,
-                r: Math.random()*5,
-                color:'rgba(255, 255, 255, ' + Math.random() + ')'}
-                 }
+                    y: -10,
+                    r: Math.random()*5,
+                    color:'rgba(255, 255, 255, ' + Math.random() + ')'
+                    }
+                }
             }
-   requestAnimationFrame(draw);
-   ctx.clearRect(0,0,x,y);
         }
- requestAnimationFrame(draw);
+        function start() {
+            /* 清屏 */
+            ctx.clearRect(0,0,x,y);
+            /* 绘制 */
+            draw();
+            /* 更新 */
+            updated(); 
+            requestAnimationFrame(start);
+        }
+        requestAnimationFrame(start);
       
             `,
         },
