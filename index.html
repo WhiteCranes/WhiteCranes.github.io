@@ -136,50 +136,45 @@ function showPopup(text) {
         var ipv4 = "";
         var ipv6 = "";
         var music_list;
-        function get_base_info(){
-// 处理版本信息请求
-fetch(server + 'direct1.php?version')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('网络请求错误: ' + response.status);
+
+
+async function get_base_info() {
+    // 处理版本信息请求
+    try {
+        const versionResponse = await fetch(server + 'direct1.php?version');
+        if (!versionResponse.ok) {
+            throw new Error('网络请求错误: ' + versionResponse.status);
         }
-        return response.text();
-    })
-    .then(data => {
-        version = data;
-    })
-    .catch(error => {
-        get_base_info();
-    });
+        version = await versionResponse.text();
+    } catch (error) {
+        await get_base_info();
+    }
 
-// 处理获取IP地址请求
-fetch('https://hcu.icu/getip.php')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('网络请求错误: ' + response.status);
+    // 处理获取IP地址请求
+    try {
+        const ipResponse = await fetch('https://hcu.icu/getip.php');
+        if (!ipResponse.ok) {
+            throw new Error('网络请求错误: ' + ipResponse.status);
         }
-        return response.text();
-    })
-    .then(data => {
-        ipv4 = data;
-    })
-    .catch(error => {
-       get_base_info();
-    });
+        ipv4 = await ipResponse.text();
+    } catch (error) {
+        await get_base_info();
+    }
 
+    try {
+        const musicResponse = await fetch(server + 'direct1.php?music');
+        const musicData = await musicResponse.json();
+        music_list = musicData.data;
+    } catch (error) {
+        await get_base_info();
+    }
+}
 
-        fetch(server + 'direct1.php?music')
-                .then(response => response.json())
-                .then(data => music_list=data.data)
-    .catch(error => {
-       get_base_info();
-    });
+async function init() {
+    await get_base_info();
+}
 
-
-            
-        }
-
-                get_base_info();
+init();
         fetch('https://6.hcu.icu/getip.php')
             .then(response => response.text())
             .then(data => {
