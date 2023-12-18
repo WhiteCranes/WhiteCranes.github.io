@@ -330,15 +330,8 @@ function my1(v = "") {
 
     main.innerHTML = "正在加载聊天记录";
     fetch(server+"direct1.php?his=" + v) // 更改为你的PHP脚本的URL
-        .then((response) => response.arrayBuffer())
-        .then((arrayBuffer) => {
-            // 使用pako解压缩
-            let decompressed = pako.inflate(new Uint8Array(arrayBuffer), {
-                to: "string",
-            });
-            // console.log(`${decompressed}`);
-            var jsonObj = JSON.parse(decompressed);
-            // console.log(`${jsonObj.content}`);
+        .then((response) => response.json())
+        .then((jsonObj) => {
             var arr = jsonObj.content.split("@#!@");
             if (jsonObj.add3 == getc("userid")) {
                 document.getElementById("footer").style.display = "flex";
