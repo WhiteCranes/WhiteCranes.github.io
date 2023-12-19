@@ -809,6 +809,7 @@ const imgElement = document.getElementById('bgimg');
                     margin-top: 8rem !important;
                 }
                  .tab_child{
+                     flex-direction: column;
                      overflow-y: auto;
                      max-height: 100%;
                  }
@@ -918,7 +919,7 @@ function switchTab(tabid){
             childElement.style.display="none";
             if (childElement.getAttribute('tabid')===tabid){
                 childElement.id = 'main';
-                childElement.style.display="block";
+                childElement.style.display="flex";
 
             }
         }
