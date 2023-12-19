@@ -13,26 +13,26 @@ body {
     .message {
       margin-top: 10px;
       margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 10px;
-      clear: both;
-      position: relative;
+      padding: 0.5em;
+      border-radius: 1em;
+      /*clear: both;*/
+      /*position: relative;*/
       min-width: 35px;
-      max-width: calc(100% - var(--padding) * 2.1);
+      flex-shrink: 1;
+      max-width: calc(100% - var(--padding) * 2 - 2em);
+      /*max-width: 100%;*/
     }
 
 
-    .message video {
-max-width: 100%;
-      
-    }
     .me {
+
       background-color: #62adf3;
       color: white;
-      float: right;
-
-   
-    margin-right: var(--padding);
+      /*float: right;*/
+      align-self: flex-end;
+   /*width: fit-content;*/
+      margin-left: var(--padding);
+      margin-right: var(--padding);
     }
     .me div{
       max-height: 80vh;
@@ -44,9 +44,10 @@ max-width: 100%;
     .you {
       background-color: #98989842;
       color: inherit;
-      float: left;
-      text-align: left;
+      /*float: left;*/
+      align-self: flex-start;
       margin-left: var(--padding);
+      margin-right: var(--padding);
 backdrop-filter: blur(4px);
       
     }
