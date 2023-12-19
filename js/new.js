@@ -326,12 +326,14 @@ function generateRandomString(length) {
     }
     return result;
 }
-function my1(v = "") {
+function my1(v = "",dom) {
 
-    main.innerHTML = "正在加载聊天记录";
+    dom.innerHTML = "正在加载聊天记录";
     fetch(server+"direct1.php?his=" + v) // 更改为你的PHP脚本的URL
         .then((response) => response.json())
         .then((jsonObj) => {
+
+            // console.log(`${jsonObj.content}`);
             var arr = jsonObj.content.split("@#!@");
             if (jsonObj.add3 == getc("userid")) {
                 document.getElementById("footer").style.display = "flex";
@@ -341,14 +343,14 @@ function my1(v = "") {
             }
 
             let flag = 0;
-            main.innerHTML = "";
+            dom.innerHTML = "";
             arr.forEach(function (item) {
                 if (item.includes("jj")) {
                     item="该消息包含违规内容";
                 }
 
                 if (flag == 0) {
-                    addmessage("right", item, true, isqipao);
+                    addmessage("right", item, true, isqipao,false,"",dom);
                     flag = 1;
                 } else {
                     flag = 0;
@@ -378,7 +380,7 @@ function my1(v = "") {
 
 
                     replacedString = mark(replacedString);
-                    addmessage("left", replacedString, false, isqipao, false, pid);
+                    addmessage("left", replacedString, false, isqipao, false, pid,dom);
 
 
                 }
@@ -388,7 +390,7 @@ function my1(v = "") {
 
         })
         .catch(()=>{
-            main.innerHTML = "加载失败";
+            dom.innerHTML = "加载失败";
         });
 }
 
@@ -559,10 +561,33 @@ mess.value=selectedText;
 function addchat(user, t, type = true, type1 = true, prep = false) {
     addx(user, t, type, type1, prep, "", document.getElementById("chatmain"));
 }
-function addmessage(user, t, type = true, type1 = true, prep = false, pid = "") {
-    addx(user, t, type, type1, prep, pid, main);
+/**
+ * 向消息中添加内容
+ * @param {string} user - 用户信息
+ * @param {string} t - 消息内容
+ * @param {boolean} type - 是否不解释为HTML
+ * @param {boolean} type1 - 气泡
+ * @param {boolean} prep - 是否是即将要填充内容的prep
+ * @param {string} pid - 消息pid
+ * @param {HTMLElement|null} insert - 要填充内容的元素，如果为null，则填充到主要元素(main)
+ */
+function addmessage(user, t, type = true, type1 = true, prep = false, pid = "", insert = null) {
+    // 第一个，左右
+    // 第二个内容
+    // 第三个是否解释html
+    // 第四个气泡
+    // 第五个，是否是即将要填内容的prep
+    // 第六个 消息pid
+    // 第七个，填到哪
+    if (insert) {
+        addx(user, t, type, type1, prep, pid, insert);
+    } else {
+        addx(user, t, type, type1, prep, pid, main);
+    }
 }
-function addx(user, t, type = true, type1 = true, prep = false, pid = "", ojb) {//第一个class,第二个内容,第三个不解释,第四个气泡
+
+function addx(user, t, type = true, type1 = true, prep = false, pid = "", ojb) {
+
     var newMessage = document.createElement("div");
 
 
@@ -716,7 +741,7 @@ function sendz(a, div, url) {
     if (window.location.protocol === 'http:') {
       socket = new WebSocket(url);
     }else{
-      addmessage("left", `<p>当前为https，无法正常使用，请修改浏览器地址栏为http，把s去掉。</p>`, false, true, false);
+      addmessage("left", `<p>当前为https，无法正常使用，请修改浏览器地址栏为http，把s去掉。</p>`, false, true);
     }
     
     var empty = true;
