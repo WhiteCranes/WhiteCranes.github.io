@@ -880,8 +880,8 @@ function createTab(cid="",name="新聊天"){
     const main_container = document.getElementById('main_container');
 
     main_container.appendChild(newMain);
+return switchTab(tabid);
 
-    switchTab(tabid);
 }
 
 function switchTab(tabid){
@@ -913,6 +913,7 @@ function switchTab(tabid){
         nowMain.removeAttribute('id');
     }
     const children = main_container.children;
+    let select;
     if (children.length > 0) {
         for (let i = 0; i < children.length; i++) {
             const childElement = children[i];
@@ -920,12 +921,11 @@ function switchTab(tabid){
             if (childElement.getAttribute('tabid')===tabid){
                 childElement.id = 'main';
                 childElement.style.display="flex";
-
+                select=childElement;
             }
         }
     }
-    var main = document.getElementById('main');
-    var mainTab = document.getElementById('mainTab');
+    return select;
 }
     function switchTabById(cid,name=""){
         const tab_container = document.getElementById('tab_container');
@@ -934,14 +934,13 @@ function switchTab(tabid){
             for (let i = 0; i < children.length; i++) {
                 const childElement = children[i];
                 if (childElement.getAttribute('cid')===cid){
-                    switchTab(childElement.getAttribute('tabid'));
-                    my1(cid);
+                    my1(cid,switchTab(childElement.getAttribute('tabid')));
                     return;
                 }
             }
         }
-        createTab(cid,name);
-        my1(cid);
+
+        my1(cid,createTab(cid,name));
     }
 </script>
 
