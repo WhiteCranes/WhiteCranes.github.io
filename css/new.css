@@ -210,21 +210,19 @@ pre button{
     border-top: 1px solid #777;
     border-bottom: 1px solid #777;
     background-color: #7774;
-    max-height: 80%;
-    overflow-y: auto;
-  }
-
-  .user{
+    /*max-height: 80vh;*/
+    /*overflow-y: auto;*/
     margin: 0;
     overflow-wrap: break-word;
     white-space: pre-wrap;
   }
 
+
   .ans,
   .user {
     
-    clear: both;
-    font: weight 3px;
+
+
     padding-left: var(--padding);
     padding-right: var(--padding);
     padding-top: 10px;
