@@ -10,6 +10,7 @@ body {
   
   --flex: column;
 }
+
     .message {
       margin-top: 10px;
       margin-bottom: 10px;
@@ -26,7 +27,7 @@ body {
 
     .me {
 
-      background-color: #62adf3;
+      background-color: #43b968;
       color: white;
       /*float: right;*/
       align-self: flex-end;
@@ -49,7 +50,7 @@ body {
       margin-left: var(--padding);
       margin-right: var(--padding);
 backdrop-filter: blur(4px);
-      
+      -webkit-backdrop-filter: blur(15px);
     }
     .vip {
       background-color: #7cd500;
@@ -129,8 +130,9 @@ pre button{
   user-select: none; /* Non-prefixed version */
   
 }
-#his bottom{
+#his>div{
   MARGIN: 1REM;
+  cursor: pointer;
   border-radius: 1rem;
     font-family: "SimHei";
     PADDING: 0.3rem 0px 0.3rem 0px;
@@ -140,19 +142,32 @@ pre button{
     overflow-wrap: break-word;
     white-space: normal;
     transition: all 0.3s ease-in-out;
-    border: 0.2rem solid transparent;
+    border: 0.1rem solid transparent;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(15px);
+  background-color: #98989842;
 }
-#his bottom:hover {
+#his>div:hover {
   border-color: currentColor;
+  transform: scale(1.01);
+  background-color: #777A;
+
 }
-#his bottom div{
+#his>div div{
   text-overflow: ellipsis;
 }
 
+.you{
+  transition: all 0.3s ease-in-out;
+}
+.you:hover {
+  background-color: #7777;
+}
 .header{
   position: absolute;
   width: 100%;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(15px);
   transition: transform 0.5s ease-in-out;
   z-index:2;
 }
