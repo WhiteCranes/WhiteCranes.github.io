@@ -104,10 +104,10 @@ function showPopup(text) {
         }
     </style>
 
-    <script src="js/new.js?2bn80d2"></script>
+    <script src="js/new.js?2bn0d2"></script>
 
 
-    <link id="newcss" rel="stylesheet" href="css/new.css">
+    <link id="newcss" rel="stylesheet" href="css/new.css?23">
     <script src="js/marked.min.js"></script>
     <script src="js/pako_inflate.min.js"></script>
     <script src="js/highlight.min.js?14"></script>
@@ -478,10 +478,7 @@ function showPopup(text) {
             transform: scale(1.02);
         }
 
-        #his bottom:hover {
-            transform: scale(1.05);
-            background-color: #7775;
-        }
+
 
         #draggableDiv a {
             transition: all 0.3s ease-in-out;
@@ -1166,7 +1163,7 @@ function switchTab(tabid){
                     items.map((item) => {
 
 
-                        var a = document.createElement('bottom');
+                        var a = document.createElement('div');
                         a.href = "#";
                         a.id = item.id;
 
@@ -1192,7 +1189,7 @@ function switchTab(tabid){
                         } else if (givenTime.getDate() === currentTime.getDate()) {
                             // 创建一个 <h2> 元素
                             const h2Element = document.createElement("h2");
-                            h2Element.textContent = "今天"; // 设置 <h2> 内的文本内容
+                            h2Element.textContent = "今天早些时候"; // 设置 <h2> 内的文本内容
 
                             // 将 <h2> 元素添加到父元素中
                             if (!todayNotificationShown) {
@@ -1246,25 +1243,25 @@ let onetitle;
                         contentDiv.className = `local ${count}`;
                         contentDiv.textContent = item.add2;  // Assuming the item has a 'content' property
                         a.appendChild(contentDiv);
-                        a.addEventListener('mousedown', () => {
-                            a.style.transform = "scale(0.95)";
-                        });
-
-
-                        a.addEventListener('mouseleave', () => {
-
-                            a.style.transform = "scale(1)";
-
-                        });
-                        a.addEventListener('mouseenter', () => {
-                            a.style.transform = "scale(1.05)";
-                        });
-                        a.addEventListener('mouseup', () => {
-
-                            setTimeout(function () {
-                                a.style.transform = "scale(1)";
-                            }, 200);
-                        });
+                        // a.addEventListener('mousedown', () => {
+                        //     a.style.transform = "scale(0.95)";
+                        // });
+                        //
+                        //
+                        // a.addEventListener('mouseleave', () => {
+                        //
+                        //     a.style.transform = "scale(1)";
+                        //
+                        // });
+                        // a.addEventListener('mouseenter', () => {
+                        //     a.style.transform = "scale(1.05)";
+                        // });
+                        // a.addEventListener('mouseup', () => {
+                        //
+                        //     setTimeout(function () {
+                        //         a.style.transform = "scale(1)";
+                        //     }, 200);
+                        // });
 
 
                         document.getElementById('his').appendChild(a);
