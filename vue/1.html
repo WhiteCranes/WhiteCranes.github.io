@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态弹出提示示例</title>
+    <style>
+html,body{
+    margin: 0;
+    padding: 0;
+    user-select: none !important;
+}
+    </style>
+    <script>
+        server="http://www.hcu.icu/"
+                        WIDGET = {
+            "CONFIG": {
+                "layout": "1",
+                "width": "300",
+                "height": "150",
+                "language": "zh",
+                "background": "1",
+                "dataColor": "FFFFFF",
+                "city": "",
+                "key": "1ae5fee1e1d84f37a143a1170f99fd12"
+            }
+        }
+        fetch(server + "direct1.php?ip")
+  .then((response) => response.text())
+  .then((data) => {
+
+      return fetch(server + "direct1.php?geo=" + data);
+
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    let geoid = data.location[0].id;
+    WIDGET.CONFIG.city="CN"+geoid;
+      // 创建一个 script 元素
+      var scriptElement = document.createElement('script');
+
+      // 设置 script 元素的 src 属性
+      scriptElement.src = "https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0";
+
+      // 将 script 元素添加到文档的头部或其他合适的位置
+      document.head.appendChild(scriptElement);
+     setInterval(checkForElement, 1000);
+  })
+  .catch((error) => {
+    console.error("发生错误:", error);
+  });
+  function checkForElement() {
+    var targetClassName = "wv-lt-col-5";
+    removeElementByClassName(targetClassName);
+}
+function removeElementByClassName(className) {
+    var elements = document.getElementsByClassName(className);
+    if (elements.length > 0) {
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].parentNode.removeChild(elements[i]);
+        }
+    }
+}
+    </script>
+</head>
+<body>
+
+    <div id="he-plugin-standard"></div>
+<script>
+
+</script>
+
+</body>
+</html>
