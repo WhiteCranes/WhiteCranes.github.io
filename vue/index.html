@@ -19,9 +19,24 @@
     </script>
     <script type="module" crossorigin src="http://47.106.101.146/index-Dj2KOhQS.js"></script>
     <link rel="stylesheet" crossorigin href="http://47.106.101.146/index-H-aS9jMb.css">
+    <script src="http://47.106.101.146/bg.js"></script>
   </head>
   <body>
       首次加载可能需要1分钟，白屏是正常的，请耐心等待
     <div id="app"></div>
+      <script>
+const bg=new Rc();
+bg.getElement().style.position = "absolute";
+bg.getElement().style.top = "0";
+bg.getElement().style.left = "0";
+bg.getElement().style.width = "100%";
+bg.getElement().style.height = "100%";
+bg.setAlbumImage("https://gpt.hcu.icu/pic/bgpic.jpg");
+bg.setRenderScale(1);
+bg.setFPS(60);
+bg.setFlowSpeed(2);
+bg.setStaticMode(false);
+document.body.appendChild(bg.getElement());
+  </script>
   </body>
 </html>
