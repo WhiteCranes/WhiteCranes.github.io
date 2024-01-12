@@ -1308,7 +1308,12 @@ if(isMobile()){
             main_c.style.fontSize = "1.5rem";
             isqipao=false;
 }else{
-    window.location.href = "http://gpt.hcu.icu/vue/index.html";
+            const urlParams = new URLSearchParams(window.location.search);
+
+        if (urlParams.get('force')!= "2") {
+            window.location.href = "http://gpt.hcu.icu/vue/index.html";
+        }
+    
     main_c.style.fontSize = getc("fontsize1") + "rem";
 }
   
