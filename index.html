@@ -8,12 +8,12 @@
     <script src="katex/contrib/auto-render.js"></script>
     <script>
           // 弹出询问框
-  var switchToFrontend = confirm("是否切换到新前端？更漂亮的界面");
+  // var switchToFrontend = confirm("是否切换到新前端？更漂亮的界面");
 
-  // 如果用户点击确定，则跳转到新前端页面
-  if (switchToFrontend) {
-    window.location.href = "http://gpt.hcu.icu/vue/index.html";
-  } 
+  // // 如果用户点击确定，则跳转到新前端页面
+  // if (switchToFrontend) {
+    
+  // } 
         if (window.location.protocol === 'https:') {
     // 构建HTTP的URL
     var httpUrl = 'http://' + window.location.hostname + window.location.pathname + window.location.search + window.location.hash;
@@ -1308,6 +1308,7 @@ if(isMobile()){
             main_c.style.fontSize = "1.5rem";
             isqipao=false;
 }else{
+    window.location.href = "http://gpt.hcu.icu/vue/index.html";
     main_c.style.fontSize = getc("fontsize1") + "rem";
 }
   
