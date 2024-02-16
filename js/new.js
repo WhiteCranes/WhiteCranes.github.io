@@ -738,6 +738,7 @@ function sendx(a) {
 function sendz(a, div, url) {
     let buff = "";
   let socket;
+  socket = new WebSocket(url);
     // if (window.location.protocol === 'http:') {
     //   socket = new WebSocket(url);
     // }else{
