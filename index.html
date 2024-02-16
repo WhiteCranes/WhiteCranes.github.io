@@ -19,8 +19,8 @@
         
         if (window.location.protocol === 'https:') {
     // 构建HTTP的URL
-    var httpUrl = 'http://' + window.location.hostname + window.location.pathname + window.location.search + window.location.hash;
-  alert(`当前为https，无法正常使用，请修改浏览器地址栏为http，把s去掉。目前为${window.location.href}，你需要修改为${httpUrl}`);
+    // var httpUrl = 'http://' + window.location.hostname + window.location.pathname + window.location.search + window.location.hash;
+  // alert(`当前为https，无法正常使用，请修改浏览器地址栏为http，把s去掉。目前为${window.location.href}，你需要修改为${httpUrl}`);
     // 重定向到HTTP
     //window.location.href = httpUrl;
 }
@@ -42,8 +42,8 @@
         }
 var isqipao = true;
         const urlParams = new URLSearchParams(window.location.search);
-        var server = "https://www.hcu.icu/";
-        var wsserver = "ws://hk.hcu.icu:8080/"
+        var server = "https://phr.hcu.icu/";
+        var wsserver = "wss://hk.hcu.icu:8080/"
         var myVariable = "1号服务器“一生一世”";
         if (urlParams.get('server') == "2") {
             server = "https://hcu.icu/";
