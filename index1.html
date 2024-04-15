@@ -960,11 +960,9 @@ function switchTab(tabid){
                           onkeydown="preventNewLine(event)"></textarea>
             <div id="submit">
                 <button id="send1" class="submit-btn">GPT</button>
-                <button id="send2" class="submit-btn" style="background-color: #000;">百度Ai</button>
+               
             </div>
-            <label style="display: flex;flex-direction: column;">
-                <div><input type="checkbox" id="myCheckbox" checked>中文</div>
-            </label>
+
             <script>
                 var submit_btn = document.getElementById("submit");
 
@@ -987,19 +985,7 @@ function switchTab(tabid){
                     sendw(data);
 
                 });
-                document.getElementById("send2").addEventListener("click", function () {
-                    let data = {
-                        ipv4: ipv4,
-                        ipv6: ipv6,
-                        bot: "bd",
-                        add: "",
-                        message: mess.value,
-                        userid: getc("userid"),
-                        version: version,
-                    };
-                    sendw(data);
 
-                });
                 function sendw(data,url = wsserver) {
                                
        
@@ -1032,13 +1018,6 @@ function switchTab(tabid){
 
 
 
-                    if (document.getElementById("myCheckbox").checked) {
-                        data.add = "#zh-cn\n\n\n";
-                    }
-                    // 使用JSON.stringify将JavaScript对象转化为JSON字符串
-                    if (document.getElementById("myCheckbox").checked && cid == "") {
-                        //data.add = "#zh-cn 今天是七夕节，请你先祝福一下我，再回答一下的问题：\n\n\n";
-                    }
                     sendz(JSON.stringify(data), prep, url);
 
 
